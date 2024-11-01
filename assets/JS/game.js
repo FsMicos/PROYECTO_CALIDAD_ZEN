@@ -1,6 +1,8 @@
 // Array de palabras para el juego
 let palabras = [];
 let productosSeleccionados = [];
+let sitiosUnicos = [];
+let profesionalesUnicos = [];
 
 // Función para inicializar los datos de productos y cargar el tablero
 async function inicializarJuego() {
@@ -11,6 +13,10 @@ async function inicializarJuego() {
 
         palabras = productosAleatorios.map(producto => producto.nombre);
         productosSeleccionados = productosAleatorios;
+
+        // Recopilar todos los sitios y profesionales únicos
+        sitiosUnicos = [...new Map(productosAleatorios.map(producto => [producto.sitio.id, producto.sitio])).values()];
+        profesionalesUnicos = [...new Map(productosAleatorios.map(producto => [producto.profesional.id, producto.profesional])).values()];
 
         // Llamar a cargarPalabras después de obtener los productos
         cargarPalabras();
@@ -33,13 +39,15 @@ function crearFila(producto) {
     word.classList.add("word");
     word.textContent = producto.nombre;
 
+    // Crear el select de Sitios y añadir todas las opciones únicas
     const selectSitio = document.createElement("select");
     selectSitio.classList.add("select-option");
-    agregarOpcionesSelect(selectSitio, producto.sitio, "Selecciona un sitio");
+    agregarOpcionesSelect(selectSitio, sitiosUnicos, "Selecciona un sitio");
 
+    // Crear el select de Profesionales y añadir todas las opciones únicas
     const selectProfesional = document.createElement("select");
     selectProfesional.classList.add("select-option");
-    agregarOpcionesSelect(selectProfesional, producto.profesional, "Selecciona un profesional");
+    agregarOpcionesSelect(selectProfesional, profesionalesUnicos, "Selecciona un profesional");
 
     row.appendChild(img);
     row.appendChild(word);
@@ -49,17 +57,23 @@ function crearFila(producto) {
     return row;
 }
 
-// Función para agregar una opción al select
-function agregarOpcionesSelect(select, item, defaultText) {
+
+
+// Función para agregar múltiples opciones al select
+function agregarOpcionesSelect(select, items, defaultText) {
+    // Crear la opción por defecto
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = defaultText;
     select.appendChild(defaultOption);
 
-    const option = document.createElement("option");
-    option.value = item.nombre.toLowerCase().replace(/\s+/g, '-');
-    option.textContent = item.nombre;
-    select.appendChild(option);
+    // Agregar cada elemento del array como una opción en el select
+    items.forEach(item => {
+        const option = document.createElement("option");
+        option.value = item.nombre.toLowerCase().replace(/\s+/g, '-');
+        option.textContent = item.nombre;
+        select.appendChild(option);
+    });
 }
 
 // Función para cargar todas las filas de productos dinámicamente
