@@ -1,7 +1,7 @@
 const sequelize = require('./config/database');
-const Producto = require('./models/producto');
-const Sitio = require('./models/sitio');
-const Profesional = require('./models/profesional');
+const Producto = require('./models/Producto');
+const Sitio = require('./models/Sitio');
+const Profesional = require('./models/Profesional');
 
 // Sincronizar todos los modelos con la base de datos
 sequelize.sync()
