@@ -46,7 +46,32 @@ Producto.getRandomProducts = async function() {
         throw error;
     }
 };
-
+//metodo para encontrar el sitio de un producto por el nombre de un producto
+Producto.getSiteByProductName = async function(nombreProducto) {
+    try {
+        const sitio = await Producto.findOne({
+            where: { nombre: nombreProducto },
+            include: { model: Sitio, as: 'sitio' }
+        });
+        return sitio.sitio;
+    } catch (error) {
+        console.error('Error al obtener el sitio por nombre de producto:', error);
+        throw error;
+    }
+};
+//metodo para econtrar el profesional de un producto por el nombre de un producto
+Producto.getProfessionalByProductName = async function(nombreProducto) {
+    try {
+        const profesional = await Producto.findOne({
+            where: { nombre: nombreProducto },
+            include: { model: Profesional, as: 'profesional' }
+        });
+        return profesional.profesional;
+    } catch (error) {
+        console.error('Error al obtener el profesional por nombre de producto:', error);
+        throw error;
+    }
+};
 // Definir las asociaciones
 Producto.belongsTo(Sitio, { foreignKey: 'id_sitio', as: 'sitio' });
 Producto.belongsTo(Profesional, { foreignKey: 'id_profesional', as: 'profesional' });

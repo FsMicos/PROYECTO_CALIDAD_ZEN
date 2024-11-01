@@ -41,12 +41,12 @@ function crearFila(producto) {
 
     // Crear el select de Sitios y añadir todas las opciones únicas
     const selectSitio = document.createElement("select");
-    selectSitio.classList.add("select-option");
+    selectSitio.classList.add("select-sitio-option"); // Cambio a clase específica para sitio
     agregarOpcionesSelect(selectSitio, sitiosUnicos, "Selecciona un sitio");
 
     // Crear el select de Profesionales y añadir todas las opciones únicas
     const selectProfesional = document.createElement("select");
-    selectProfesional.classList.add("select-option");
+    selectProfesional.classList.add("select-profesional-option"); // Cambio a clase específica para profesional
     agregarOpcionesSelect(selectProfesional, profesionalesUnicos, "Selecciona un profesional");
 
     row.appendChild(img);
@@ -56,6 +56,7 @@ function crearFila(producto) {
 
     return row;
 }
+
 
 
 
@@ -85,5 +86,37 @@ function cargarPalabras() {
     });
 }
 
+function validarJuego() {
+    console.log("Juego finalizado");
+    alert("¡Has finalizado el juego!");
+    const filas = document.querySelectorAll(".row");
+
+    filas.forEach(fila => {
+        const selectSitio = fila.querySelector(".select-sitio-option");  // Clase específica para el sitio
+        const selectProfesional = fila.querySelector(".select-profesional-option");  // Clase específica para el profesional
+
+        const sitioSeleccionado = selectSitio ? selectSitio.value : null;
+        const profesionalSeleccionado = selectProfesional ? selectProfesional.value : null;
+
+        const productoNombre = fila.querySelector(".word").textContent.toLowerCase().replace(/\s+/g, '-');
+        const producto = productosSeleccionados.find(producto => producto.nombre.toLowerCase().replace(/\s+/g, '-') === productoNombre);
+
+        if (producto) {
+            const sitioValido = producto.sitio.nombre.toLowerCase().replace(/\s+/g, '-') === sitioSeleccionado;
+            const profesionalValido = producto.profesional.nombre.toLowerCase().replace(/\s+/g, '-') === profesionalSeleccionado;
+
+            if (sitioValido && profesionalValido) {
+                fila.style.backgroundColor = "green";
+            } else {
+                fila.style.backgroundColor = "red";
+            }
+        } else {
+            console.error("Producto no encontrado en productosSeleccionados:", productoNombre);
+        }
+    });
+}
+
 // Llamar a la función de inicialización cuando se carga la página
 document.addEventListener("DOMContentLoaded", inicializarJuego);
+//esto de aqui es una fucnin que se desata al momento de hacr una accion en un componente especifico
+document.querySelector('.finish-button').addEventListener('click', validarJuego);
