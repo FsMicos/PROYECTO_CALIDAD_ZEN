@@ -138,11 +138,14 @@ function mostrarSolucion() {
         word.classList.add("word");
         word.textContent = producto.nombre;
 
-        const correctSitio = document.createElement("select");
-        const correctProfesional = document.createElement("select");
+        // Crear elementos de texto para mostrar las respuestas correctas
+        const correctSitio = document.createElement("span");
+        correctSitio.classList.add("readonly-text");
+        correctSitio.textContent = producto.sitio.nombre;
 
-        agregarOpcionesSelect(correctSitio, sitiosUnicos, producto.sitio.nombre);
-        agregarOpcionesSelect(correctProfesional, profesionalesUnicos, producto.profesional.nombre);
+        const correctProfesional = document.createElement("span");
+        correctProfesional.classList.add("readonly-text");
+        correctProfesional.textContent = producto.profesional.nombre;
 
         solutionRow.appendChild(word);
         solutionRow.appendChild(correctSitio);
@@ -151,6 +154,7 @@ function mostrarSolucion() {
         solutionBoard.appendChild(solutionRow);
     });
 }
+
 
 // Función para resetear el juego
 function resetJuego() {

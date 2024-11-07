@@ -182,3 +182,18 @@ h1 {
     gap: 10px;
     margin-top: 20px;
 }
+
+/* Estilo para el texto que simula un combo box no editable */
+.readonly-text {
+    display: inline-block;
+    width: 200px; /* Mismo ancho que los combo boxes */
+    padding: 10px;
+    background-color: #FFFFFF;
+    color: #4D4D4D;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+}
+
+
