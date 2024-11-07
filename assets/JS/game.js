@@ -4,6 +4,10 @@ let productosSeleccionados = [];
 let sitiosUnicos = [];
 let profesionalesUnicos = [];
 
+// Elementos del DOM
+const solutionButton = document.querySelector('.solution-button'); // Botón Mostrar Solución
+const solutionBoard = document.getElementById('solution-board'); // Contenedor de soluciones
+
 // Función para inicializar los datos de productos y cargar el tablero
 async function inicializarJuego() {
     try {
@@ -41,12 +45,12 @@ function crearFila(producto) {
 
     // Crear el select de Sitios y añadir todas las opciones únicas
     const selectSitio = document.createElement("select");
-    selectSitio.classList.add("select-sitio-option"); // Cambio a clase específica para sitio
+    selectSitio.classList.add("select-sitio-option");
     agregarOpcionesSelect(selectSitio, sitiosUnicos, "Selecciona un sitio");
 
     // Crear el select de Profesionales y añadir todas las opciones únicas
     const selectProfesional = document.createElement("select");
-    selectProfesional.classList.add("select-profesional-option"); // Cambio a clase específica para profesional
+    selectProfesional.classList.add("select-profesional-option");
     agregarOpcionesSelect(selectProfesional, profesionalesUnicos, "Selecciona un profesional");
 
     row.appendChild(img);
@@ -57,18 +61,13 @@ function crearFila(producto) {
     return row;
 }
 
-
-
-
 // Función para agregar múltiples opciones al select
 function agregarOpcionesSelect(select, items, defaultText) {
-    // Crear la opción por defecto
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = defaultText;
     select.appendChild(defaultOption);
 
-    // Agregar cada elemento del array como una opción en el select
     items.forEach(item => {
         const option = document.createElement("option");
         option.value = item.nombre.toLowerCase().replace(/\s+/g, '-');
@@ -86,37 +85,98 @@ function cargarPalabras() {
     });
 }
 
+// Función para validar el juego
 function validarJuego() {
     console.log("Juego finalizado");
     alert("¡Has finalizado el juego!");
     const filas = document.querySelectorAll(".row");
 
     filas.forEach(fila => {
-        const selectSitio = fila.querySelector(".select-sitio-option");  // Clase específica para el sitio
-        const selectProfesional = fila.querySelector(".select-profesional-option");  // Clase específica para el profesional
+        const selectSitio = fila.querySelector(".select-sitio-option");
+        const selectProfesional = fila.querySelector(".select-profesional-option");
 
         const sitioSeleccionado = selectSitio ? selectSitio.value : null;
         const profesionalSeleccionado = selectProfesional ? selectProfesional.value : null;
 
-        const productoNombre = fila.querySelector(".word").textContent.toLowerCase().replace(/\s+/g, '-');
-        const producto = productosSeleccionados.find(producto => producto.nombre.toLowerCase().replace(/\s+/g, '-') === productoNombre);
+        const wordElement = fila.querySelector(".word");
+        const productoNombre = wordElement.textContent.toLowerCase().replace(/\s+/g, '-');
+        const producto = productosSeleccionados.find(
+            producto => producto.nombre.toLowerCase().replace(/\s+/g, '-') === productoNombre
+        );
 
         if (producto) {
             const sitioValido = producto.sitio.nombre.toLowerCase().replace(/\s+/g, '-') === sitioSeleccionado;
             const profesionalValido = producto.profesional.nombre.toLowerCase().replace(/\s+/g, '-') === profesionalSeleccionado;
 
+            fila.classList.remove("correct", "incorrect");
+            wordElement.classList.remove("text-white");
+
             if (sitioValido && profesionalValido) {
-                fila.style.backgroundColor = "green";
+                fila.classList.add("correct");
+                wordElement.classList.add("text-white");
             } else {
-                fila.style.backgroundColor = "red";
+                fila.classList.add("incorrect");
+                wordElement.classList.add("text-white");
             }
         } else {
             console.error("Producto no encontrado en productosSeleccionados:", productoNombre);
         }
     });
+    solutionButton.style.display = "block"; // Mostrar botón de solución
 }
 
-// Llamar a la función de inicialización cuando se carga la página
-document.addEventListener("DOMContentLoaded", inicializarJuego);
-//esto de aqui es una fucnin que se desata al momento de hacr una accion en un componente especifico
+// Función para mostrar las soluciones correctas
+function mostrarSolucion() {
+    solutionBoard.innerHTML = ""; // Limpiar soluciones previas
+    solutionBoard.style.display = "flex"; // Mostrar el contenedor de soluciones
+
+    productosSeleccionados.forEach(producto => {
+        const solutionRow = document.createElement("div");
+        solutionRow.classList.add("row");
+
+        const word = document.createElement("span");
+        word.classList.add("word");
+        word.textContent = producto.nombre;
+
+        // Crear elementos de texto para mostrar las respuestas correctas
+        const correctSitio = document.createElement("span");
+        correctSitio.classList.add("readonly-text");
+        correctSitio.textContent = producto.sitio.nombre;
+
+        const correctProfesional = document.createElement("span");
+        correctProfesional.classList.add("readonly-text");
+        correctProfesional.textContent = producto.profesional.nombre;
+
+        solutionRow.appendChild(word);
+        solutionRow.appendChild(correctSitio);
+        solutionRow.appendChild(correctProfesional);
+
+        solutionBoard.appendChild(solutionRow);
+    });
+}
+
+
+// Función para resetear el juego
+function resetJuego() {
+    const gameBoard = document.getElementById("game-board");
+    gameBoard.innerHTML = ""; // Limpiar el tablero de juego
+    solutionBoard.innerHTML = ""; // Limpiar el tablero de soluciones
+    solutionBoard.style.display = "none"; // Ocultar el contenedor de soluciones
+    solutionButton.style.display = "none"; // Ocultar el botón de solución
+    productosSeleccionados = [];
+    palabras = [];
+    inicializarJuego(); // Reiniciar el juego
+}
+
+// Función para redirigir al menú
+function volverAlMenu() {
+    window.location.assign("index.html");
+}
+
+
+// Eventos para los botones
 document.querySelector('.finish-button').addEventListener('click', validarJuego);
+solutionButton.addEventListener('click', mostrarSolucion);
+document.querySelector('.reset-button').addEventListener('click', resetJuego);
+document.querySelector('.menu-button').addEventListener('click', volverAlMenu);
+document.addEventListener("DOMContentLoaded", inicializarJuego);
