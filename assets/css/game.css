@@ -120,6 +120,7 @@ h1 {
     color: #FFFFFF !important;
 }
 
+/* Estilos para los botones de volver a jugar y regresar*/
 .reset-button {
     width: 100%;
     padding: 12px;
@@ -154,4 +155,30 @@ h1 {
 
 .menu-button:hover {
     background-color: hsl(50, 80%, 70%);
+}
+
+/* Estilos para los botones de ver solucion*/
+.solution-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFA500; /* Naranja para diferenciar */
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.solution-button:hover {
+    background-color: #FFB347;
+}
+
+.solution-board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
