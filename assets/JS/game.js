@@ -92,29 +92,64 @@ function validarJuego() {
     const filas = document.querySelectorAll(".row");
 
     filas.forEach(fila => {
-        const selectSitio = fila.querySelector(".select-sitio-option");  // Clase específica para el sitio
-        const selectProfesional = fila.querySelector(".select-profesional-option");  // Clase específica para el profesional
+        const selectSitio = fila.querySelector(".select-sitio-option"); // Clase específica para el sitio
+        const selectProfesional = fila.querySelector(".select-profesional-option"); // Clase específica para el profesional
 
         const sitioSeleccionado = selectSitio ? selectSitio.value : null;
         const profesionalSeleccionado = selectProfesional ? selectProfesional.value : null;
 
-        const productoNombre = fila.querySelector(".word").textContent.toLowerCase().replace(/\s+/g, '-');
-        const producto = productosSeleccionados.find(producto => producto.nombre.toLowerCase().replace(/\s+/g, '-') === productoNombre);
+        const wordElement = fila.querySelector(".word");
+        const productoNombre = wordElement.textContent.toLowerCase().replace(/\s+/g, '-');
+        const producto = productosSeleccionados.find(
+            producto => producto.nombre.toLowerCase().replace(/\s+/g, '-') === productoNombre
+        );
 
         if (producto) {
             const sitioValido = producto.sitio.nombre.toLowerCase().replace(/\s+/g, '-') === sitioSeleccionado;
             const profesionalValido = producto.profesional.nombre.toLowerCase().replace(/\s+/g, '-') === profesionalSeleccionado;
 
+            // Remover clases previas para asegurar que el color se aplique correctamente
+            fila.classList.remove("correct", "incorrect");
+            wordElement.classList.remove("text-white");
+
+            // Aplicar la clase de color según el resultado
             if (sitioValido && profesionalValido) {
-                fila.style.backgroundColor = "green";
+                fila.classList.add("correct"); // Clase para fondo verde
+                wordElement.classList.add("text-white"); // Cambiar el color de la palabra a blanco
             } else {
-                fila.style.backgroundColor = "red";
+                fila.classList.add("incorrect"); // Clase para fondo rojo
+                wordElement.classList.add("text-white"); // Cambiar el color de la palabra a blanco
             }
         } else {
             console.error("Producto no encontrado en productosSeleccionados:", productoNombre);
         }
     });
 }
+
+// Función para resetear el juego
+function resetJuego() {
+    // Limpiar el contenido del tablero
+    const gameBoard = document.getElementById("game-board");
+    gameBoard.innerHTML = "";
+
+    // Restablecer las selecciones de productos
+    productosSeleccionados = [];
+    palabras = [];
+
+    // Re-inicializar el juego
+    inicializarJuego();
+}
+
+// Función para redirigir al menú
+function volverAlMenu() {
+    window.location.href = "index.html";
+}
+
+// Llamar a la función de redirección cuando se hace clic en el botón "Volver al Menú"
+document.querySelector('.menu-button').addEventListener('click', volverAlMenu);
+
+// Llamar a la función de reset cuando se hace clic en el botón "Volver a Jugar"
+document.querySelector('.reset-button').addEventListener('click', resetJuego);
 
 // Llamar a la función de inicialización cuando se carga la página
 document.addEventListener("DOMContentLoaded", inicializarJuego);

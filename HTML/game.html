@@ -1,35 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juego</title>
-    <link rel="stylesheet" href="../assets/css/game.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
-</head>
-<body>
+    <link rel="stylesheet" href="../assets/css/game.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
     <div class="container">
-        <h1>Juego de Selección de Palabras</h1>
-        
-        <!-- Contenedor de títulos de columnas -->
-        <div class="column-titles">
-            <span class="title-img"></span>
-            <span class="title-word"></span>
-            <span class="title-select">Sitio</span>
-            <span class="title-select">Profesional</span>
-        </div>
-        
-        <div id="game-board" class="game-board">
-            <!-- Aquí se cargarán las filas dinámicamente -->
-        </div>
+      <h1>Juego de Selección de Palabras</h1>
 
-        <!-- Botón Finalizar -->
-        <button class="finish-button">Finalizar</button>
+      <!-- Contenedor de títulos de columnas -->
+      <div class="column-titles">
+        <span class="title-img"></span>
+        <span class="title-word"></span>
+        <span class="title-select">Sitio</span>
+        <span class="title-select">Profesional</span>
+      </div>
+
+      <div id="game-board" class="game-board">
+        <!-- Aquí se cargarán las filas dinámicamente -->
+      </div>
+
+      <!-- Botón Finalizar -->
+      <button class="finish-button">Finalizar</button>
+      <!-- Botón Volver a Jugar -->
+      <button class="reset-button">Volver a Jugar</button>
+      <!-- Botón Volver al Menú -->
+      <button class="menu-button">Volver al Menú</button>
     </div>
 
     <!-- Vinculación del script de juego -->
     <script src="../assets/JS/game.js"></script>
-</body>
+  </body>
 </html>

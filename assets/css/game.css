@@ -81,11 +81,11 @@ h1 {
 }
 
 .select-option {
-    width: 200px;
-    padding: 5px;
+    width: 250px;
+    padding: 10px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 38px;
 }
 
 .finish-button {
@@ -104,4 +104,54 @@ h1 {
 
 .finish-button:hover {
     background-color: hsl(90, 47%, 80%);
+}
+
+/* Clases para fondo verde y rojo */
+.correct {
+    background-color: #4eb653 !important; /* Verde */
+}
+
+.incorrect {
+    background-color: #c63637 !important; /* Rojo */
+}
+
+/* Clase para cambiar el color del texto a blanco */
+.text-white {
+    color: #FFFFFF !important;
+}
+
+.reset-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #A6CEE3;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.reset-button:hover {
+    background-color: hsl(200, 47%, 80%);
+}
+
+.menu-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFD700;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.menu-button:hover {
+    background-color: hsl(50, 80%, 70%);
 }
