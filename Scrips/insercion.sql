@@ -4,7 +4,7 @@ USE zenlabs;
 INSERT INTO Sitio (nombre) VALUES 
 ('Farmacia'), 
 ('Panadería'), 
-('Tienda Escolar'),
+('Papeleria'),
 ('Frutería'),
 ('Carnicería'),
 ('Peluquería'),
@@ -15,7 +15,7 @@ INSERT INTO Sitio (nombre) VALUES
 INSERT INTO Profesional (nombre) VALUES 
 ('Farmacéutico'), 
 ('Panadero'), 
-('Tienda de utiles escolares'),
+('papelero'),
 ('Verdulero'),
 ('Carnicero'),
 ('Peluquero'),
