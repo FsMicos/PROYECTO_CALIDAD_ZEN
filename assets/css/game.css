@@ -196,4 +196,28 @@ h1 {
     text-align: center;
 }
 
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .zoom-controls button {
+    padding: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #A6CEE3;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .zoom-controls button:hover {
+    background-color: hsl(200, 47%, 80%);
+  }
+  
+
 

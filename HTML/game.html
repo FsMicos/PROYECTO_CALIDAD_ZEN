@@ -15,7 +15,13 @@
   <body>
     <div class="container">
       <h1>Juego de Selección de Palabras</h1>
-
+    
+      <!-- Botones de Zoom -->
+      <div class="zoom-controls">
+        <button onclick="zoomIn()">+</button>
+        <button onclick="zoomOut()">-</button>
+      </div>
+    
       <!-- Contenedor de títulos de columnas -->
       <div class="column-titles">
         <span class="title-img"></span>
@@ -23,11 +29,11 @@
         <span class="title-select">Sitio</span>
         <span class="title-select">Profesional</span>
       </div>
-
+    
       <div id="game-board" class="game-board">
         <!-- Aquí se cargarán las filas dinámicamente -->
       </div>
-
+    
       <!-- Botón Finalizar -->
       <button class="finish-button">Finalizar</button>
       
@@ -40,16 +46,15 @@
         class="solution-board"
         style="display: none"
       ></div>
-
+    
       <!-- Botón Volver a Jugar -->
       <button class="reset-button">Volver a Jugar</button>
       
       <!-- Botón Volver al Menú -->
       <button class="menu-button">Volver al Menú</button>
-    
     </div>
-
     <!-- Vinculación del script de juego -->
     <script src="../assets/JS/game.js"></script>
+    <script src="../assets/JS/zoom.js"></script>
   </body>
 </html>
