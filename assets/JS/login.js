@@ -16,7 +16,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
       if (response.ok) {
         alert('Login exitoso');
         console.log(data); // Aquí puedes guardar el token o los datos si es necesario
-        window.location.href = 'game.html'; // Redirigir al juego
+        window.location.href = 'inicio.html'; // Redirigir al juego
       } else {
         alert(data.message || 'Error al iniciar sesión');
       }

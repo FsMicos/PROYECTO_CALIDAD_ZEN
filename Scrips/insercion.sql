@@ -1,6 +1,8 @@
 -- Seleccionar la base de datos
 USE zenlabs;
-insert into Medico
+INSERT INTO Medico (nombre, apellido, usuario, contrasena, telefono, correo)
+VALUES 
+    ('Michael', 'Trocellier', 'micos', 'micos123', '0992522882', 'fsmicos@gmail.com');insert into 
 -- Insertar datos en la tabla Sitio
 INSERT INTO Sitio (nombre) VALUES 
 ('Farmacia'), 
@@ -22,6 +24,19 @@ INSERT INTO Profesional (nombre) VALUES
 ('Peluquero'),
 ('Zapatero'),
 ('Florista');
+
+INSERT INTO Paciente (nombre, apellido, edad)
+VALUES 
+    ('Michael', 'Trocellier', 28),
+    ('Laura', 'Martínez', 35),
+    ('Carlos', 'Pérez', 42),
+    ('Ana', 'Gómez', 30),
+    ('Javier', 'Rodríguez', 25),
+    ('María', 'Fernández', 33),
+    ('Luis', 'Torres', 50),
+    ('Elena', 'Vega', 27),
+    ('José', 'García', 29),
+    ('Claudia', 'López', 31);
 
 -- Insertar productos relacionados con cada sitio y profesional
 INSERT INTO Producto (nombre, id_sitio, id_profesional) VALUES 
