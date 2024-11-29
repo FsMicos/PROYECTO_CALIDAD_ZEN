@@ -15,14 +15,21 @@ async function inicializarJuego() {
         const response = await fetch('http://localhost:3000/api/productos');
         const productosAleatorios = await response.json();
 
+        console.log('Productos obtenidos:', productosAleatorios); // Verificar la respuesta
+
         palabras = productosAleatorios.map(producto => producto.nombre);
         productosSeleccionados = productosAleatorios;
 
-        // Recopilar todos los sitios y profesionales únicos
+        console.log('Palabras:', palabras); // Verificar el array de palabras
+        console.log('Productos seleccionados:', productosSeleccionados); // Verificar productos seleccionados
+
+        // Recopilar sitios y profesionales únicos
         sitiosUnicos = [...new Map(productosAleatorios.map(producto => [producto.sitio.id, producto.sitio])).values()];
         profesionalesUnicos = [...new Map(productosAleatorios.map(producto => [producto.profesional.id, producto.profesional])).values()];
 
-        // Llamar a cargarPalabras después de obtener los productos
+        console.log('Sitios únicos:', sitiosUnicos); // Verificar sitios únicos
+        console.log('Profesionales únicos:', profesionalesUnicos); // Verificar profesionales únicos
+
         cargarPalabras();
     } catch (error) {
         console.error('Error al inicializar el juego:', error);
@@ -31,6 +38,8 @@ async function inicializarJuego() {
 
 // Función para crear una fila con un producto y dos select
 function crearFila(producto) {
+    console.log('Creando fila para producto:', producto); // Verificar producto
+
     const row = document.createElement("div");
     row.classList.add("row");
 
@@ -41,14 +50,12 @@ function crearFila(producto) {
 
     const word = document.createElement("span");
     word.classList.add("word");
-    word.textContent = producto.nombre;
+    word.textContent = producto.nombre || "Sin nombre"; // Manejar datos faltantes
 
-    // Crear el select de Sitios y añadir todas las opciones únicas
     const selectSitio = document.createElement("select");
     selectSitio.classList.add("select-sitio-option");
     agregarOpcionesSelect(selectSitio, sitiosUnicos, "Selecciona un sitio");
 
-    // Crear el select de Profesionales y añadir todas las opciones únicas
     const selectProfesional = document.createElement("select");
     selectProfesional.classList.add("select-profesional-option");
     agregarOpcionesSelect(selectProfesional, profesionalesUnicos, "Selecciona un profesional");
@@ -79,10 +86,15 @@ function agregarOpcionesSelect(select, items, defaultText) {
 // Función para cargar todas las filas de productos dinámicamente
 function cargarPalabras() {
     const gameBoard = document.getElementById("game-board");
-    productosSeleccionados.forEach(producto => {
+    gameBoard.innerHTML = ""; // Asegúrate de limpiar el tablero antes de cargarlo
+
+    productosSeleccionados.forEach((producto, index) => {
         const fila = crearFila(producto);
+        console.log(`Fila ${index + 1}:`, fila); // Verificar cada fila generada
         gameBoard.appendChild(fila);
     });
+
+    console.log('Tablero cargado:', gameBoard.innerHTML); // Verificar el contenido del tablero
 }
 
 // Función para validar el juego

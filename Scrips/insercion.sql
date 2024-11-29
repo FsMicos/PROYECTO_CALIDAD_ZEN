@@ -1,5 +1,6 @@
 -- Seleccionar la base de datos
 USE zenlabs;
+insert into Medico
 -- Insertar datos en la tabla Sitio
 INSERT INTO Sitio (nombre) VALUES 
 ('Farmacia'), 

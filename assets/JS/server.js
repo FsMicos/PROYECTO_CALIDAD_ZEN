@@ -1,20 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const cors = require('cors');
+const authRoutes = require('./routes/authRoutes'); // Rutas de autenticación
+const productoRoutes = require('./routes/productoRoutes'); // Rutas de productos
+
 const app = express();
-const Producto = require('./models/Producto'); // Importa el modelo Producto con asociaciones definidas
 
-app.use(cors()); // Habilitar CORS para todas las rutas
+app.use(cors());
+app.use(bodyParser.json());
 
-// Ruta para obtener 16 productos aleatorios junto con sus sitios y profesionales
-app.get('/api/productos', async (req, res) => {
-    try {
-        const productos = await Producto.getRandomProducts(); // Este método debe incluir `Sitio` y `Profesional`
-        res.json(productos); // Envía los productos como respuesta en formato JSON
-    } catch (error) {
-        console.error('Error al obtener productos:', error);
-        res.status(500).json({ error: 'Error al obtener productos' });
-    }
-});
+// Usar las rutas
+app.use('/api', authRoutes);       // Montar rutas de autenticación bajo /api
+app.use('/api', productoRoutes);   // Montar rutas de productos bajo /api
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

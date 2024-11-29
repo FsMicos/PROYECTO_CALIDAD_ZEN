@@ -25,3 +25,22 @@ CREATE TABLE Producto (
     FOREIGN KEY (id_sitio) REFERENCES Sitio(id),
     FOREIGN KEY (id_profesional) REFERENCES Profesional(id)
 );
+
+-- Crear la tabla Medico
+CREATE TABLE Medico (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    usuario VARCHAR(100) NOT NULL UNIQUE,
+    contrasena VARCHAR(255) NOT NULL,
+    telefono VARCHAR(15) NOT NULL,
+    correo VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Crear la tabla Paciente
+CREATE TABLE Paciente (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    edad INT NOT NULL
+);
