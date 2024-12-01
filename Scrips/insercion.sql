@@ -2,7 +2,7 @@
 USE zenlabs;
 INSERT INTO Medico (nombre, apellido, usuario, contrasena, telefono, correo)
 VALUES 
-    ('Michael', 'Trocellier', 'micos', 'micos123', '0992522882', 'fsmicos@gmail.com');insert into 
+    ('Michael', 'Trocellier', 'micos', 'micos123', '0992522882', 'fsmicos@gmail.com');
 -- Insertar datos en la tabla Sitio
 INSERT INTO Sitio (nombre) VALUES 
 ('Farmacia'), 
