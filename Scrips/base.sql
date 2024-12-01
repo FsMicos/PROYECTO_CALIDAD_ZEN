@@ -44,3 +44,11 @@ CREATE TABLE Paciente (
     apellido VARCHAR(100) NOT NULL,
     edad INT NOT NULL
 );
+-- Crear la tabla Intento
+CREATE TABLE Intento (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    id_paciente INT NOT NULL,
+    fecha DATETIME NOT NULL,
+    tiempo INT NOT NULL, -- Tiempo en segundos
+    FOREIGN KEY (id_paciente) REFERENCES Paciente(id)
+);

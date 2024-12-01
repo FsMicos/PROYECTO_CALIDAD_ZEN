@@ -3,14 +3,27 @@ let palabras = [];
 let productosSeleccionados = [];
 let sitiosUnicos = [];
 let profesionalesUnicos = [];
+let tiempoInicio; // Variable para almacenar el momento de inicio del juego
 
 // Elementos del DOM
 const solutionButton = document.querySelector('.solution-button'); // Botón Mostrar Solución
 const solutionBoard = document.getElementById('solution-board'); // Contenedor de soluciones
+//esto toma el id del paciente que se envio anteriormente
+const urlParams = new URLSearchParams(window.location.search);
+const pacienteId = urlParams.get('pacienteId');
+
+if (!pacienteId) {
+    console.error('No se proporcionó el ID del paciente');
+    alert('Error: No se proporcionó el ID del paciente.');
+    window.location.href = 'inicio.html'; // Redirige al inicio si no hay id
+}
 
 // Función para inicializar los datos de productos y cargar el tablero
 async function inicializarJuego() {
     try {
+        // Registrar el inicio del juego
+        tiempoInicio = new Date();
+
         // Llamar a la API para obtener los productos
         const response = await fetch('http://localhost:3000/api/productos');
         const productosAleatorios = await response.json();
@@ -35,6 +48,47 @@ async function inicializarJuego() {
         console.error('Error al inicializar el juego:', error);
     }
 }
+function calcularTiempo() {
+    const tiempoFin = new Date();
+    const tiempoTotal = Math.floor((tiempoFin - tiempoInicio) / 1000); // Diferencia en segundos
+    console.log(`Tiempo total del juego: ${tiempoTotal} segundos`);
+    return tiempoTotal;
+}
+// Función para calcular y enviar un nuevo intento
+async function registrarIntento(tiempo) {
+    try {
+        const response = await fetch('http://localhost:3000/api/intentos', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                id_paciente: pacienteId, // id del paciente capturado de la URL
+                tiempo: tiempo, // Tiempo calculado en segundos
+            }),
+        });
+
+        if (response.ok) {
+            const intento = await response.json();
+            console.log('Intento registrado:', intento);
+            alert('Intento registrado con éxito');
+        } else {
+            const error = await response.json();
+            console.error('Error al registrar intento:', error);
+            alert('Error al registrar el intento.');
+        }
+    } catch (error) {
+        console.error('Error en el servidor:', error);
+        alert('Error en el servidor al registrar el intento.');
+    }
+}
+
+// Al finalizar el juego, calcula el tiempo y registra el intento
+function finalizarJuego() {
+    const tiempo = calcularTiempo(); // Calcular tiempo del juego
+    registrarIntento(tiempo); // Registrar el intento en la base de datos
+    alert(`Juego finalizado. Tiempo total: ${tiempo} segundos`);
+}
+
+
 
 // Función para crear una fila con un producto y dos select
 function crearFila(producto) {
@@ -182,12 +236,16 @@ function resetJuego() {
 
 // Función para redirigir al menú
 function volverAlMenu() {
-    window.location.assign("index.html");
+    window.location.assign("inicio.html");
 }
 
+// Llama a finalizarJuego en el evento correspondiente (por ejemplo, cuando se valida el juego)
 
 // Eventos para los botones
-document.querySelector('.finish-button').addEventListener('click', validarJuego);
+document.querySelector('.finish-button').addEventListener('click', () => {
+    validarJuego();  // Validar respuestas del juego
+    finalizarJuego();  // Registrar el intento con el tiempo
+});
 solutionButton.addEventListener('click', mostrarSolucion);
 document.querySelector('.reset-button').addEventListener('click', resetJuego);
 document.querySelector('.menu-button').addEventListener('click', volverAlMenu);
