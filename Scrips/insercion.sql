@@ -1,12 +1,8 @@
 -- Seleccionar la base de datos
 USE zenlabs;
-<<<<<<< Updated upstream
 INSERT INTO Medico (nombre, apellido, usuario, contrasena, telefono, correo)
 VALUES 
     ('Michael', 'Trocellier', 'micos', 'micos123', '0992522882', 'fsmicos@gmail.com');
-=======
-
->>>>>>> Stashed changes
 -- Insertar datos en la tabla Sitio
 INSERT INTO Sitio (nombre) VALUES 
 ('Farmacia'), 
