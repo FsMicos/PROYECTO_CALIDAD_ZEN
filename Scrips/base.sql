@@ -22,6 +22,7 @@ CREATE TABLE Producto (
     nombre VARCHAR(100) NOT NULL,
     id_sitio INT,
     id_profesional INT,
+    ruta_imagen_producto VARCHAR(100),
     FOREIGN KEY (id_sitio) REFERENCES Sitio(id),
     FOREIGN KEY (id_profesional) REFERENCES Profesional(id)
 );

@@ -22,6 +22,10 @@ const Producto = sequelize.define('Producto', {
             model: Profesional,
             key: 'id'
         }
+    },
+    ruta_imagen_producto: {
+        type: DataTypes.STRING,
+        allowNull: false
     }
 }, {
     tableName: 'Producto',
@@ -64,7 +68,7 @@ Producto.getProfessionalByProductName = async function(nombreProducto) {
     try {
         const profesional = await Producto.findOne({
             where: { nombre: nombreProducto },
-            include: { model: Profesional, as: 'profesional' }
+            include: { model: Profesional, as: 'profesional'}
         });
         return profesional.profesional;
     } catch (error) {

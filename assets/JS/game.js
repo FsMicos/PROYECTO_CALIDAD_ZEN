@@ -27,9 +27,14 @@ async function inicializarJuego() {
         // Llamar a la API para obtener los productos
         const response = await fetch('http://localhost:3000/api/productos');
         const productosAleatorios = await response.json();
+<<<<<<< Updated upstream
 
         console.log('Productos obtenidos:', productosAleatorios); // Verificar la respuesta
 
+=======
+        console.log(productosAleatorios[0]);
+        console.log(Object.keys(productosAleatorios[0]));
+>>>>>>> Stashed changes
         palabras = productosAleatorios.map(producto => producto.nombre);
         productosSeleccionados = productosAleatorios;
 
@@ -97,8 +102,9 @@ function crearFila(producto) {
     const row = document.createElement("div");
     row.classList.add("row");
 
+    console.log(producto.ruta_imagen_producto)
     const img = document.createElement("img");
-    img.src = "../assets/img/usuario.png";
+    img.src = producto.ruta_imagen_producto;
     img.alt = "Imagen de ejemplo";
     img.classList.add("row-image");
 
