@@ -1,4 +1,4 @@
-let zoomLevel = 1;
+let zoomLevel = 1.5;
 const maxZoom = 2; // Nivel máximo de zoom (200%)
 const minZoom = 0.5; // Nivel mínimo de zoom (50%)
 
@@ -19,6 +19,6 @@ function zoomOut() {
 function applyZoom() {
   const container = document.querySelector('.container');
   container.style.transform = `scale(${zoomLevel})`;
-  container.style.transformOrigin = 'top left';
+  container.style.transformOrigin = 'top center';
   container.style.overflow = 'auto'; // Permitir scroll cuando el zoom sea grande
 }

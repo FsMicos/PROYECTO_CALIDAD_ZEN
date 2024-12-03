@@ -14,7 +14,6 @@ const pacienteId = urlParams.get('pacienteId');
 
 if (!pacienteId) {
     console.error('No se proporcionó el ID del paciente');
-    alert('Error: No se proporcionó el ID del paciente.');
     window.location.href = 'inicio.html'; // Redirige al inicio si no hay id
 }
 
@@ -71,15 +70,15 @@ async function registrarIntento(tiempo) {
         if (response.ok) {
             const intento = await response.json();
             console.log('Intento registrado:', intento);
-            alert('Intento registrado con éxito');
+            // alert('Intento registrado con éxito');
         } else {
             const error = await response.json();
             console.error('Error al registrar intento:', error);
-            alert('Error al registrar el intento.');
+            // alert('Error al registrar el intento.');
         }
     } catch (error) {
         console.error('Error en el servidor:', error);
-        alert('Error en el servidor al registrar el intento.');
+        // alert('Error en el servidor al registrar el intento.');
     }
 }
 
@@ -87,7 +86,7 @@ async function registrarIntento(tiempo) {
 function finalizarJuego() {
     const tiempo = calcularTiempo(); // Calcular tiempo del juego
     registrarIntento(tiempo); // Registrar el intento en la base de datos
-    alert(`Juego finalizado. Tiempo total: ${tiempo} segundos`);
+    // alert(`Juego finalizado. Tiempo total: ${tiempo} segundos`);
 }
 
 
@@ -104,6 +103,16 @@ function crearFila(producto) {
     img.src = producto.ruta_imagen_producto;
     img.alt = "Imagen de ejemplo";
     img.classList.add("row-image");
+
+    // Agregar eventos de zoom a las imagenes
+    img.addEventListener('mouseover', () => {
+        img.style.transform = "scale(2)"; // Cambiar el nivel de zoom aquí
+        img.style.transition = "transform 0.3s ease"; // Animación suave
+    });
+
+    img.addEventListener('mouseout', () => {
+        img.style.transform = "scale(1)"; // Restaurar el zoom
+    });
 
     const word = document.createElement("span");
     word.classList.add("word");
@@ -157,7 +166,6 @@ function cargarPalabras() {
 // Función para validar el juego
 function validarJuego() {
     console.log("Juego finalizado");
-    alert("¡Has finalizado el juego!");
     const filas = document.querySelectorAll(".row");
 
     filas.forEach(fila => {
@@ -177,16 +185,21 @@ function validarJuego() {
             const sitioValido = producto.sitio.nombre.toLowerCase().replace(/\s+/g, '-') === sitioSeleccionado;
             const profesionalValido = producto.profesional.nombre.toLowerCase().replace(/\s+/g, '-') === profesionalSeleccionado;
 
-            fila.classList.remove("correct", "incorrect");
+            fila.classList.remove("correct", "incorrect", "empty", "half-correct");
             wordElement.classList.remove("text-white");
 
-            if (sitioValido && profesionalValido) {
-                fila.classList.add("correct");
-                wordElement.classList.add("text-white");
+            if (sitioSeleccionado === "" && profesionalSeleccionado === "") {
+                fila.classList.add("empty");
             } else {
-                fila.classList.add("incorrect");
-                wordElement.classList.add("text-white");
+                if (sitioValido && profesionalValido) {
+                    fila.classList.add("correct");
+                } else if (sitioValido || profesionalValido){
+                    fila.classList.add("half-correct");
+                } else {
+                    fila.classList.add("incorrect");
+                }
             }
+
         } else {
             console.error("Producto no encontrado en productosSeleccionados:", productoNombre);
         }
@@ -242,10 +255,23 @@ function volverAlMenu() {
     window.location.assign("inicio.html");
 }
 
+// Función para mostrar la alerta
+function showAlert() {
+    const alertOverlay = document.getElementById("alert-overlay");
+    alertOverlay.style.display = "flex"; // Usar flex para centrar el contenido
+}
+
+// Función para cerrar la alerta
+function closeAlert() {
+    const alertOverlay = document.getElementById("alert-overlay");
+    alertOverlay.style.display = "none";
+}
+
 // Llama a finalizarJuego en el evento correspondiente (por ejemplo, cuando se valida el juego)
 
 // Eventos para los botones
 document.querySelector('.finish-button').addEventListener('click', () => {
+    showAlert();
     validarJuego();  // Validar respuestas del juego
     finalizarJuego();  // Registrar el intento con el tiempo
 });

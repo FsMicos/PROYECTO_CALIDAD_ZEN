@@ -113,11 +113,19 @@ h1 {
 
 /* Clases para fondo verde y rojo */
 .correct {
-    background-color: #4eb653 !important; /* Verde */
+    border: 4px solid #4eb653 !important; /* Verde */
+}
+
+.half-correct {
+    border: 4px solid #FFD700 !important; /* Naranja */
 }
 
 .incorrect {
-    background-color: #c63637 !important; /* Rojo */
+    border: 4px solid #c63637 !important; /* Blanco */
+}
+
+.empty {
+    border: 4px solid #FFD700 !important; /* Blanco */
 }
 
 /* Clase para cambiar el color del texto a blanco */
@@ -240,4 +248,60 @@ h1 {
     border-radius: 5px;
 }
 
+/* Estilos para la alerta personalizada */
+#alert-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente más oscuro */
+    z-index: 9999; /* Asegurarse de que esté encima de otros elementos */
+    display: none; /* Ocultar por defecto */
+    justify-content: center;
+    align-items: center; /* Centrar el contenido verticalmente */
+  }
+  
+  /* Contenedor del cuadro de alerta */
+  #alert-box {
+    background-color: white;
+    width: 450px; /* Ancho del cuadro */
+    padding: 40px;
+    border-radius: 15px; /* Bordes redondeados */
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    position: relative;
+  }
+  
+  /* Estilos para la imagen */
+  #alert-box img {
+    width: 120px; /* Tamaño de la imagen */
+    height: 120px; /* Tamaño de la imagen */
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+  }
+  
+  /* Estilos para el texto de la alerta */
+  #alert-box p {
+    font-size: 24px; /* Tamaño de la fuente del mensaje */
+    font-weight: bold; /* Fuente en negrita */
+    margin: 0 0 20px; /* Espaciado inferior */
+    color: #333; /* Color del texto */
+  }
+  
+  /* Estilos para el botón de la alerta */
+  #alert-box button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #4CAF50; /* Color de fondo del botón */
+    color: white; /* Color del texto del botón */
+    border: none; /* Sin bordes */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor al pasar por encima */
+    font-size: 18px; /* Tamaño del texto del botón */
+  }
+  
+  #alert-box button:hover {
+    background-color: #45a049; /* Cambio de color al pasar el mouse */
+  }
+  
 
