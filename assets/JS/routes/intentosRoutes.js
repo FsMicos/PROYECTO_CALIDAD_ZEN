@@ -21,4 +21,20 @@ router.post('/intentos', async (req, res) => {
     }
 });
 
+// Ruta para obtener el historial de un paciente
+router.get('/intentos/:id_paciente', async (req, res) => {
+    const { id_paciente } = req.params;
+
+    try {
+        const intentos = await Intento.findAll({
+            where: { id_paciente },
+            order: [['fecha', 'DESC']], // Ordenar por fecha descendente
+        });
+        res.status(200).json(intentos);
+    } catch (error) {
+        console.error('Error al obtener el historial:', error);
+        res.status(500).json({ message: 'Error al obtener el historial' });
+    }
+});
+
 module.exports = router;

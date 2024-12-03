@@ -224,5 +224,20 @@ h1 {
     background-color: hsl(200, 47%, 80%);
   }
   
+  #historial-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
 
 

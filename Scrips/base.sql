@@ -53,3 +53,8 @@ CREATE TABLE Intento (
     tiempo INT NOT NULL, -- Tiempo en segundos
     FOREIGN KEY (id_paciente) REFERENCES Paciente(id)
 );
+
+-- Modificar la tabla Intento para incluir aciertos y fallos
+ALTER TABLE Intento
+ADD COLUMN aciertos INT NOT NULL DEFAULT 0,
+ADD COLUMN fallos INT NOT NULL DEFAULT 0;

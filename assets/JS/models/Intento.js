@@ -1,7 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-// Definir el modelo Intento
 const Intento = sequelize.define('Intento', {
     id: {
         type: DataTypes.INTEGER,
@@ -20,10 +19,17 @@ const Intento = sequelize.define('Intento', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    aciertos: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
+    fallos: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
 }, {
     tableName: 'Intento',
     timestamps: false,
 });
 
-// Exportar el modelo sin definir la relación
 module.exports = Intento;
