@@ -73,3 +73,29 @@ button:hover {
     font-size: 14px;
     margin-top: 10px;
 }
+
+.menu-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFD700;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+.menu-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

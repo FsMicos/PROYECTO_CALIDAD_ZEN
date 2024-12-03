@@ -56,5 +56,9 @@ async function inicializarPagina() {
     }
 }
 
+document.getElementById('registrarPacienteButton').addEventListener('click', () => {
+    window.location.href = 'registro-paciente.html'; // Redirige a la página de registro
+});
+
 // Llamar a la función para inicializar la página
 document.addEventListener('DOMContentLoaded', inicializarPagina);
