@@ -26,7 +26,8 @@ async function inicializarPagina() {
 
             // Botón Historial
             const historialButton = document.createElement('button');
-            historialButton.classList.add('menu-button');
+            historialButton.classList.add('button');
+            historialButton.classList.add('historial-button');
             historialButton.textContent = 'Historial';
             historialButton.addEventListener('click', () => {
                 // Redirigir al historial del paciente (No implementado)
@@ -35,7 +36,8 @@ async function inicializarPagina() {
 
             // Botón Jugar
             const jugarButton = document.createElement('button');
-            jugarButton.classList.add('finish-button');
+            jugarButton.classList.add('button');
+            jugarButton.classList.add('play-button');
             jugarButton.textContent = 'Jugar';
             jugarButton.addEventListener('click', () => {
                 // Redirigir a la página del juego (No implementado)

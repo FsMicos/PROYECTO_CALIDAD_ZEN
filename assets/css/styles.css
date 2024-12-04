@@ -1,29 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Nunito', sans-serif;
 }
 
 body {
+    font-family: 'Nunito', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     background-color: #A6CEE3;
 }
 
-.login-container {
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    width: 300px;
+h1, h2, h3 {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: #4D4D4D;
 }
 
-h2 {
-    margin-bottom: 20px;
+p, input, span, label, button {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 400;
     color: #4D4D4D;
 }
 
@@ -42,91 +41,10 @@ input {
     border-radius: 5px;
 }
 
-input.error {
-    border: 1px solid red;
-}
-
-button {
-    width: 100%;
-    padding: 10px;
-    background-color: hsl(90, 47%, 75%);
-    color: #4D4D4D;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color:hsl(90, 47%, 80%);
-}
-
-#gamelink {
-    color: #4D4D4D;
-    text-decoration: none;
-    font-size: 14px;
-    margin-top: 10px;
-}
-
 .error-message {
-    color: red;
+    color: #cd5c5c;
     font-size: 14px;
-    margin-top: 10px;
-}
-
-.menu-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #FFD700;
-    color: #4D4D4D;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 20px;
-    transition: background-color 0.3s;
-}
-
-.menu-button:hover {
-    background-color: hsl(50, 80%, 70%);
-}
-
-
-.error-message {
-    color: red;
-    font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 5px;
-}
-
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 16px;
-    text-align: left;
-}
-
-thead {
-    background-color: #f4f4f4;
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-}
-
-th {
-    font-weight: bold;
-    text-align: center;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tbody tr:hover {
-    background-color: #f1f1f1;
+    padding: 0;
+    margin: 0;
+    text-align: right;
 }

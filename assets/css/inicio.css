@@ -1,0 +1,84 @@
+.container {
+    width: 90%;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+/* Estilos para las filas dinámicas */
+.board {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Imagen de usuario */
+.usuario-image {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/* Información del paciente */
+.word {
+    flex: 1;
+    text-align: left;
+    font-weight: bold;
+}
+
+/* Botón de acción */
+.button {
+    padding: 12px;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-button {
+    background-color: #A6CEE3;
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.button:hover {
+    background-color: hsl(200, 47%, 80%);
+}
+
+.historial-button{
+    background-color: #FFD700;
+    width: 150px;
+}
+
+.historial-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+.play-button{
+    background-color: #B2DF8A;
+    width: 150px;
+}
+
+.play-button:hover {
+    background-color: hsl(90, 47%, 80%);
+}

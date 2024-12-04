@@ -18,7 +18,7 @@ INSERT INTO Sitio (nombre) VALUES
 INSERT INTO Profesional (nombre) VALUES 
 ('Farmacéutico'), 
 ('Panadero'), 
-('papelero'),
+('Papelero'),
 ('Verdulero'),
 ('Carnicero'),
 ('Peluquero'),

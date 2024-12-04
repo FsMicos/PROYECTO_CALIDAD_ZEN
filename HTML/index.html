@@ -5,18 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+    <link href="../assets/css/webfonts/uicons-regular-rounded.css" rel="stylesheet">
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm" method="post">
-            <label for="username">Usuario</label>
-            <input type="text" id="username" name="username" placeholder="Ingresa tu usuario">
+    <div id="alert-overlay">
+        <div id="alert-box">
+          <img src="../assets/img/warning.png" alt="Aviso" />
+          <p id="alert-message"></p>
+          <button onclick="closeAlert()">Aceptar</button>
+        </div>
+    </div>
 
-            <label for="password">Contraseña</label>
-            <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña">    
-            <button type="submit">Iniciar Sesión</button>
-            <p id="error-message" class="error-message"></p>   
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm" method="post">
+            <div class="form-row">
+                <i class="fi fi-rr-user"></i>
+                <input type="text" id="username" name="username" placeholder="Ingresa tu usuario">
+            </div>
+
+            <div class="form-row">
+                <i class="fi fi-rr-lock"></i>
+                <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña">    
+            </div>
+
+            <button type="submit">Ingresar</button>
         </form>
     </div>
     <script src="../assets/JS/login.js"></script>
