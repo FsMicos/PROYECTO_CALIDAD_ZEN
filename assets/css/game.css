@@ -310,4 +310,46 @@ h1 {
     background-color: #45a049; /* Cambio de color al pasar el mouse */
   }
   
+  .pause-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFD700; /* Amarillo */
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    transition: background-color 0.3s;
+}
+
+.pause-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+.paused {
+    opacity: 0.5; /* Reducir opacidad */
+    pointer-events: none; /* Deshabilitar interacciones */
+    transition: opacity 0.3s ease; /* Transición suave */
+}
+
+.paused-overlay {
+    position: fixed; /* Fijo para cubrir toda la ventana */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ancho completo */
+    height: 100%; /* Alto completo */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1000; /* Asegura que está por encima de otros elementos */
+    pointer-events: none; /* Evitar interacción con la capa */
+    display: none; /* Ocultar inicialmente */
+}
+
 

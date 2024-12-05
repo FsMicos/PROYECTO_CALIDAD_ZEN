@@ -3,7 +3,9 @@ let palabras = [];
 let productosSeleccionados = [];
 let sitiosUnicos = [];
 let profesionalesUnicos = [];
-let tiempoInicio; // Variable para almacenar el momento de inicio del juego
+let tiempoInicio; // Hora de inicio del juego
+let tiempoAcumulado = 0; // Tiempo acumulado antes de pausar
+let juegoPausado = false; // Estado del juego
 
 // Elementos del DOM
 const solutionButton = document.querySelector('.solution-button'); // Botón Mostrar Solución
@@ -50,11 +52,42 @@ async function inicializarJuego() {
     }
 }
 function calcularTiempo() {
-    const tiempoFin = new Date();
-    const tiempoTotal = Math.floor((tiempoFin - tiempoInicio) / 1000); // Diferencia en segundos
-    console.log(`Tiempo total del juego: ${tiempoTotal} segundos`);
-    return tiempoTotal;
+    if (juegoPausado) {
+        return Math.floor(tiempoAcumulado / 1000); // Retorna el tiempo acumulado
+    } else {
+        const tiempoFin = new Date();
+        return Math.floor((tiempoFin - tiempoInicio) / 1000); // Diferencia en segundos
+    }
 }
+function pausarJuego() {
+    const pauseButton = document.querySelector('.pause-button');
+    const gameBoard = document.querySelector('.game-board');
+    const pausedOverlay = document.getElementById('paused-overlay');
+
+    if (juegoPausado) {
+        // Reanudar el juego
+        juegoPausado = false;
+        tiempoInicio = new Date() - tiempoAcumulado;
+        tiempoInicio = new Date(tiempoInicio);
+        pauseButton.textContent = "Pausar";
+
+        // Quitar efecto de pausa
+        gameBoard.classList.remove('paused');
+        pausedOverlay.style.display = "none";
+        console.log("Juego reanudado");
+    } else {
+        // Pausar el juego
+        juegoPausado = true;
+        tiempoAcumulado = new Date() - tiempoInicio;
+        pauseButton.textContent = "Reanudar";
+
+        // Aplicar efecto de pausa
+        gameBoard.classList.add('paused');
+        pausedOverlay.style.display = "flex";
+        console.log("Juego pausado");
+    }
+}
+
 // Función para calcular y enviar un nuevo intento
 async function registrarIntento(tiempo) {
     try {
@@ -276,6 +309,7 @@ document.querySelector('.finish-button').addEventListener('click', () => {
     finalizarJuego();  // Registrar el intento con el tiempo
 });
 solutionButton.addEventListener('click', mostrarSolucion);
+document.querySelector('.pause-button').addEventListener('click', pausarJuego);
 document.querySelector('.reset-button').addEventListener('click', resetJuego);
 document.querySelector('.menu-button').addEventListener('click', volverAlMenu);
 document.addEventListener("DOMContentLoaded", inicializarJuego);
