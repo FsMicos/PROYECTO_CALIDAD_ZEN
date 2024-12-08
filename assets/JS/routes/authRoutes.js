@@ -1,7 +1,6 @@
-// routes/auth.js
 const express = require('express');
 const router = express.Router();
-const Medico = require('../models/Medico'); // Importar el modelo Medico
+const Medico = require('../models/Medico');
 
 // Ruta para el login
 router.post('/login', async (req, res) => {
@@ -25,4 +24,4 @@ router.post('/login', async (req, res) => {
     }
 });
 
-module.exports = router; // Exportar las rutas
+module.exports = router;

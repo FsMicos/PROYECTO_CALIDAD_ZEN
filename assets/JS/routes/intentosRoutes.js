@@ -1,20 +1,19 @@
 const express = require('express');
 const router = express.Router();
-const Intento = require('../models/Intento'); // Modelo Intento
+const Intento = require('../models/Intento');
 
 // Endpoint para crear un nuevo intento
 router.post('/intentos', async (req, res) => {
     const { id_paciente, tiempo, aciertos, fallos, vacios } = req.body;
 
     try {
-        // Crear el intento en la base de datos
         const intento = await Intento.create({
-            id_paciente: id_paciente,
-            fecha: new Date(), // Fecha actual
-            tiempo: tiempo,
-            aciertos: aciertos,
-            fallos: fallos,
-            vacios: vacios,
+            id_paciente,
+            fecha: new Date(),
+            tiempo,
+            aciertos,
+            fallos,
+            vacios,
         });
 
         res.status(201).json(intento);
@@ -31,7 +30,7 @@ router.get('/intentos/:id_paciente', async (req, res) => {
     try {
         const intentos = await Intento.findAll({
             where: { id_paciente },
-            order: [['fecha', 'DESC']], // Ordenar por fecha descendente
+            order: [['fecha', 'DESC']],
         });
         res.status(200).json(intentos);
     } catch (error) {

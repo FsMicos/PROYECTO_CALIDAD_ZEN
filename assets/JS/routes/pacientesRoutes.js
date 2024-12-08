@@ -5,7 +5,7 @@ const Paciente = require('../models/Paciente');
 // Ruta para obtener la lista de pacientes
 router.get('/pacientes', async (req, res) => {
     try {
-        const pacientes = await Paciente.findAll(); // Suponiendo que tienes un modelo Paciente
+        const pacientes = await Paciente.findAll();
         res.json(pacientes);
     } catch (error) {
         console.error('Error al obtener pacientes:', error);
@@ -15,11 +15,9 @@ router.get('/pacientes', async (req, res) => {
 
 // Ruta para registrar un paciente
 router.post('/pacientes', async (req, res) => {
-    console.log('Solicitud POST recibida en /api/pacientes');
     const { nombre, apellido, edad } = req.body;
 
     try {
-        console.log('Datos recibidos:', { nombre, apellido, edad });
         const nuevoPaciente = await Paciente.create({ nombre, apellido, edad });
         res.status(201).json(nuevoPaciente);
     } catch (error) {

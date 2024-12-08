@@ -1,6 +1,6 @@
 // models/Medico.js
 const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database'); // Ruta relativa a la configuración de la base de datos
+const sequelize = require('../config/database');
 
 const Medico = sequelize.define('Medico', {
   nombre: {

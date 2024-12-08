@@ -1,12 +1,11 @@
-// routes/producto.js
 const express = require('express');
 const router = express.Router();
-const Producto = require('../models/Producto'); // Importar el modelo Producto
+const Producto = require('../models/Producto');
 
 // Ruta para obtener productos aleatorios
 router.get('/productos', async (req, res) => {
     try {
-        const productos = await Producto.getRandomProducts(); // Llama al método del modelo
+        const productos = await Producto.getRandomProducts();
         res.json(productos);
     } catch (error) {
         console.error('Error al obtener productos:', error);
@@ -14,4 +13,4 @@ router.get('/productos', async (req, res) => {
     }
 });
 
-module.exports = router; // Exportar las rutas
+module.exports = router;

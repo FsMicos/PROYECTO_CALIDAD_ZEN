@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
 
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -17,6 +16,7 @@ body {
     color: #4D4D4D;
     padding-top: 100px;
 }
+
 /* Encabezado fijo */
 header {
     position: fixed;
@@ -26,8 +26,8 @@ header {
     height: 100px;
     padding: 0 20px;
     background-color: #FFFFFF;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para diferenciar del contenido */
-    z-index: 1000; /* Asegura que esté sobre otros elementos */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -37,7 +37,7 @@ header {
 .pause-button {
     width: 100%;
     padding: 12px;
-    background-color: #FFD700; /* Amarillo */
+    background-color: #FFD700;
     color: #4D4D4D;
     border: none;
     border-radius: 8px;
@@ -52,9 +52,9 @@ header {
 }
 
 .paused {
-    opacity: 0.5; /* Reducir opacidad */
-    pointer-events: none; /* Deshabilitar interacciones */
-    transition: opacity 0.3s ease; /* Transición suave */
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
 }
 
 .zoom-controls {
@@ -62,16 +62,12 @@ header {
     justify-content: center;
     gap: 20px;
 }
-  
-.zoom-controls i {
-    font-size: 36px;
-    font-weight: bold;
-    color: #4D4D4D;
-    border: none;
-    border-radius: 8px;
+
+.zoom-controls img {
+    width: 45px;
+    height: auto;
     cursor: pointer;
 }
-  
 
 .container {
     width: 90%;
@@ -101,7 +97,6 @@ select {
     border: 1px solid #ddd;
     border-radius: 5px;
 }
-
 
 .row {
     display: flex;
@@ -153,19 +148,19 @@ select {
 
 /* Clases para colores de respuestas */
 .correct {
-    border: 4px solid #4eb653 !important; /* Verde */
+    border: 4px solid #4eb653 !important;
 }
 
 .half-correct {
-    border: 4px solid #FFD700 !important; /* Naranja */
+    border: 4px solid #FFD700 !important;
 }
 
 .incorrect {
-    border: 4px solid #c63637 !important; /* Blanco */
+    border: 4px solid #c63637 !important;
 }
 
 .empty {
-    border: 4px solid #FFD700 !important; /* Naranja */
+    border: 4px solid #FFD700 !important;
 }
 
 /* Clase para cambiar el color del texto a blanco */
@@ -173,7 +168,7 @@ select {
     color: #FFFFFF !important;
 }
 
-/* Estilos para los botones de volver a jugar y regresar*/
+/* Estilos para los botones de volver a jugar y regresar */
 .reset-button {
     width: 100%;
     padding: 12px;
@@ -210,11 +205,11 @@ select {
     background-color: hsl(50, 80%, 70%);
 }
 
-/* Estilos para los botones de ver solucion*/
+/* Estilos para los botones de ver solución */
 .solution-button {
     width: 100%;
     padding: 12px;
-    background-color: #FFA500; /* Naranja para diferenciar */
+    background-color: #FFA500;
     color: #4D4D4D;
     border: none;
     border-radius: 8px;
@@ -239,7 +234,7 @@ select {
 /* Estilo para el texto que simula un combo box no editable */
 .readonly-text {
     display: inline-block;
-    width: 200px; /* Mismo ancho que los combo boxes */
+    width: 200px;
     padding: 10px;
     background-color: #FFFFFF;
     color: #4D4D4D;
@@ -266,57 +261,57 @@ select {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente más oscuro */
-    z-index: 9999; /* Asegurarse de que esté encima de otros elementos */
-    display: none; /* Ocultar por defecto */
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: none;
     justify-content: center;
-    align-items: center; /* Centrar el contenido verticalmente */
-  }
-  
-  /* Contenedor del cuadro de alerta */
-  #alert-box, #alert-box-paused {
+    align-items: center;
+}
+
+/* Contenedor del cuadro de alerta */
+#alert-box, #alert-box-paused {
     background-color: white;
-    width: 450px; /* Ancho del cuadro */
+    width: 450px;
     padding: 40px;
-    border-radius: 15px; /* Bordes redondeados */
+    border-radius: 15px;
     text-align: center;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     position: relative;
-  }
-  
-  /* Estilos para la imagen */
-  #alert-box img{
+}
+
+/* Estilos para la imagen */
+#alert-box img {
     width: 200px;
     height: auto;
     margin-bottom: 20px;
-  }
+}
 
 #alert-box-paused img {
     width: 150px;
     height: auto;
     margin-bottom: 20px;
 }
-  
-  /* Estilos para el texto de la alerta */
-  #alert-box p, #alert-box-paused p {
-    font-size: 24px; /* Tamaño de la fuente del mensaje */
-    font-weight: bold; /* Fuente en negrita */
-    margin: 0 0 20px; /* Espaciado inferior */
-    color: #333; /* Color del texto */
-  }
-  
-  /* Estilos para el botón de la alerta */
-  #alert-box button, #alert-box-paused button {
+
+/* Estilos para el texto de la alerta */
+#alert-box p, #alert-box-paused p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0 0 20px;
+    color: #333;
+}
+
+/* Estilos para el botón de la alerta */
+#alert-box button, #alert-box-paused button {
     margin-top: 20px;
     padding: 15px 30px;
-    background-color: #4CAF50; /* Color de fondo del botón */
-    color: white; /* Color del texto del botón */
-    border: none; /* Sin bordes */
-    border-radius: 10px; /* Bordes redondeados */
-    cursor: pointer; /* Cambio de cursor al pasar por encima */
-    font-size: 24px; /* Tamaño del texto del botón */
-  }
-  
-  #alert-box button:hover, #alert-box-paused button:hover {
-    background-color: #45a049; /* Cambio de color al pasar el mouse */
-  }
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 24px;
+}
+
+#alert-box button:hover, #alert-box-paused button:hover {
+    background-color: #45a049;
+}

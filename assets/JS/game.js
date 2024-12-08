@@ -1,4 +1,4 @@
-// Array de palabras para el juego
+// Array de palabras y datos para el juego
 let palabras = [];
 let productosSeleccionados = [];
 let sitiosUnicos = [];
@@ -6,65 +6,64 @@ let profesionalesUnicos = [];
 let tiempoInicio; // Hora de inicio del juego
 let tiempoAcumulado = 0; // Tiempo acumulado antes de pausar
 let juegoPausado = false; // Estado del juego
-let aciertos = 0; 
-let fallos = 0; 
+let aciertos = 0;
+let fallos = 0;
 let vacios = 0;
 
 // Elementos del DOM
 const solutionButton = document.querySelector('.solution-button'); // Botón Mostrar Solución
 const solutionBoard = document.getElementById('solution-board'); // Contenedor de soluciones
-//esto toma el id del paciente que se envio anteriormente
+
+// Captura del ID del paciente desde la URL
 const urlParams = new URLSearchParams(window.location.search);
 const pacienteId = urlParams.get('pacienteId');
 
+// Redirige al inicio si no se proporciona un ID de paciente
 if (!pacienteId) {
     console.error('No se proporcionó el ID del paciente');
-    window.location.href = 'inicio.html'; // Redirige al inicio si no hay id
+    window.location.href = 'inicio.html';
 }
 
-// Función para inicializar los datos de productos y cargar el tablero
+// Función para inicializar los datos del juego
 async function inicializarJuego() {
     aciertos = 0;
     fallos = 0;
     vacios = 0;
-    try {
-        // Registrar el inicio del juego
-        tiempoInicio = new Date();
 
-        // Llamar a la API para obtener los productos
+    try {
+        tiempoInicio = new Date(); // Registrar el inicio del juego
+
+        // Obtener productos desde la API
         const response = await fetch('http://localhost:3000/api/productos');
         const productosAleatorios = await response.json();
 
-        console.log('Productos obtenidos:', productosAleatorios); // Verificar la respuesta
+        console.log('Productos obtenidos:', productosAleatorios);
 
-        console.log(productosAleatorios[0]);
-        console.log(Object.keys(productosAleatorios[0]));
+        // Procesar los datos obtenidos
         palabras = productosAleatorios.map(producto => producto.nombre);
         productosSeleccionados = productosAleatorios;
 
-        console.log('Palabras:', palabras); // Verificar el array de palabras
-        console.log('Productos seleccionados:', productosSeleccionados); // Verificar productos seleccionados
-
-        // Recopilar sitios y profesionales únicos
+        // Generar sitios y profesionales únicos
         sitiosUnicos = [...new Map(productosAleatorios.map(producto => [producto.sitio.id, producto.sitio])).values()];
         profesionalesUnicos = [...new Map(productosAleatorios.map(producto => [producto.profesional.id, producto.profesional])).values()];
 
-        console.log('Sitios únicos:', sitiosUnicos); // Verificar sitios únicos
-        console.log('Profesionales únicos:', profesionalesUnicos); // Verificar profesionales únicos
-
-        cargarPalabras();
+        cargarPalabras(); // Cargar palabras en el tablero
     } catch (error) {
         console.error('Error al inicializar el juego:', error);
     }
 }
+
+// Función para calcular el tiempo transcurrido
 function calcularTiempo() {
     if (juegoPausado) {
-        return Math.floor(tiempoAcumulado / 1000); // Retorna el tiempo acumulado
+        return Math.floor(tiempoAcumulado / 1000);
     } else {
         const tiempoFin = new Date();
-        return Math.floor((tiempoFin - tiempoInicio) / 1000); // Diferencia en segundos
+        return Math.floor((tiempoFin - tiempoInicio) / 1000);
     }
 }
+
+// Funciones para pausar y reanudar el juego
 function pausarJuego() {
     juegoPausado = true;
     tiempoAcumulado = new Date() - tiempoInicio;
@@ -77,20 +76,20 @@ function reanudarJuego() {
     juegoPausado = false;
     tiempoInicio = new Date() - tiempoAcumulado;
     tiempoInicio = new Date(tiempoInicio);
+
     const alertOverlay = document.getElementById("paused-overlay");
     alertOverlay.style.display = "none";
 }
 
-
-// Función para calcular y enviar un nuevo intento
+// Función para registrar un intento en la base de datos
 async function registrarIntento(tiempo) {
     try {
         const response = await fetch('http://localhost:3000/api/intentos', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                id_paciente: pacienteId, // id del paciente capturado de la URL
-                tiempo: tiempo, // Tiempo calculado en segundos
+                id_paciente: pacienteId,
+                tiempo: tiempo,
                 aciertos: aciertos,
                 fallos: fallos,
                 vacios: vacios,
@@ -100,55 +99,49 @@ async function registrarIntento(tiempo) {
         if (response.ok) {
             const intento = await response.json();
             console.log('Intento registrado:', intento);
-            // alert('Intento registrado con éxito');
         } else {
             const error = await response.json();
             console.error('Error al registrar intento:', error);
-            // alert('Error al registrar el intento.');
         }
     } catch (error) {
         console.error('Error en el servidor:', error);
-        // alert('Error en el servidor al registrar el intento.');
     }
 }
 
-// Al finalizar el juego, calcula el tiempo y registra el intento
+// Finaliza el juego y registra el intento
 function finalizarJuego() {
-    const tiempo = calcularTiempo(); // Calcular tiempo del juego
+    const tiempo = calcularTiempo();
     console.log(`Aciertos: ${aciertos}, Fallos: ${fallos}, Vacíos: ${vacios}`);
-    registrarIntento(tiempo); // Registrar el intento en la base de datos
-    // alert(`Juego finalizado. Tiempo total: ${tiempo} segundos`);
+    registrarIntento(tiempo);
 }
 
-
-
-// Función para crear una fila con un producto y dos select
+// Crear una fila para un producto
 function crearFila(producto) {
-    console.log('Creando fila para producto:', producto); // Verificar producto
-
     const row = document.createElement("div");
     row.classList.add("row");
 
-    console.log(producto.ruta_imagen_producto)
+    // Imagen del producto
     const img = document.createElement("img");
     img.src = producto.ruta_imagen_producto;
     img.alt = "Imagen de ejemplo";
     img.classList.add("row-image");
 
-    // Agregar eventos de zoom a las imagenes
+    // Eventos de zoom
     img.addEventListener('mouseover', () => {
-        img.style.transform = "scale(1.25)"; // Cambiar el nivel de zoom aquí
-        img.style.transition = "transform 0.3s ease"; // Animación suave
+        img.style.transform = "scale(1.25)";
+        img.style.transition = "transform 0.3s ease";
     });
 
     img.addEventListener('mouseout', () => {
-        img.style.transform = "scale(1)"; // Restaurar el zoom
+        img.style.transform = "scale(1)";
     });
 
+    // Palabra asociada al producto
     const word = document.createElement("span");
     word.classList.add("word");
-    word.textContent = producto.nombre || "Sin nombre"; // Manejar datos faltantes
+    word.textContent = producto.nombre || "Sin nombre";
 
+    // Selects para sitios y profesionales
     const selectSitio = document.createElement("select");
     selectSitio.classList.add("select-sitio-option");
     agregarOpcionesSelect(selectSitio, sitiosUnicos, "Selecciona un sitio");
@@ -157,6 +150,7 @@ function crearFila(producto) {
     selectProfesional.classList.add("select-profesional-option");
     agregarOpcionesSelect(selectProfesional, profesionalesUnicos, "Selecciona un profesional");
 
+    // Agregar elementos a la fila
     row.appendChild(img);
     row.appendChild(word);
     row.appendChild(selectSitio);
@@ -165,7 +159,7 @@ function crearFila(producto) {
     return row;
 }
 
-// Función para mezclar un array
+// Mezcla un array aleatoriamente
 function mezclarArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -173,18 +167,15 @@ function mezclarArray(array) {
     }
 }
 
-// Función para agregar múltiples opciones al select
+// Agrega opciones al select
 function agregarOpcionesSelect(select, items, defaultText) {
-    // Mezcla las opciones antes de agregarlas
     mezclarArray(items);
 
-    // Agrega la opción por defecto
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = defaultText;
     select.appendChild(defaultOption);
 
-    // Agrega las opciones aleatorias
     items.forEach(item => {
         const option = document.createElement("option");
         option.value = item.nombre.toLowerCase().replace(/\s+/g, '-');
@@ -193,18 +184,15 @@ function agregarOpcionesSelect(select, items, defaultText) {
     });
 }
 
-// Función para cargar todas las filas de productos dinámicamente
+// Carga palabras en el tablero
 function cargarPalabras() {
     const gameBoard = document.getElementById("game-board");
-    gameBoard.innerHTML = ""; // Asegúrate de limpiar el tablero antes de cargarlo
+    gameBoard.innerHTML = "";
 
     productosSeleccionados.forEach((producto, index) => {
         const fila = crearFila(producto);
-        console.log(`Fila ${index + 1}:`, fila); // Verificar cada fila generada
         gameBoard.appendChild(fila);
     });
-
-    console.log('Tablero cargado:', gameBoard.innerHTML); // Verificar el contenido del tablero
 }
 
 // Función para validar el juego
@@ -212,7 +200,7 @@ function validarJuego() {
     aciertos = 0;
     fallos = 0;
     vacios = 0;
-    console.log("Juego finalizado");
+
     const filas = document.querySelectorAll(".row");
 
     filas.forEach(fila => {
@@ -233,9 +221,11 @@ function validarJuego() {
             const profesionalValido = producto.profesional.nombre.toLowerCase().replace(/\s+/g, '-') === profesionalSeleccionado;
 
             fila.classList.remove("correct", "incorrect", "empty", "half-correct");
-            wordElement.classList.remove("text-white");
 
-            if (sitioSeleccionado === "" || profesionalSeleccionado === "") {
+            const sitioEsVacio = !sitioSeleccionado;
+            const profesionalEsVacio = !profesionalSeleccionado;
+
+            if (sitioEsVacio || profesionalEsVacio) {
                 fila.classList.add("empty");
             } else {
                 if (sitioValido && profesionalValido) {
@@ -246,10 +236,6 @@ function validarJuego() {
                     fila.classList.add("incorrect");
                 }
             }
-
-            // Inicializa indicadores de vacío
-            const sitioEsVacio = !sitioSeleccionado;
-            const profesionalEsVacio = !profesionalSeleccionado;
 
             // Incrementa vacíos si no se seleccionó un sitio o profesional
             if (sitioEsVacio) vacios++;
@@ -262,19 +248,16 @@ function validarJuego() {
             // Incrementa fallos solo si no es un vacío y no es válido
             if (!sitioEsVacio && !sitioValido) fallos++;
             if (!profesionalEsVacio && !profesionalValido) fallos++;
-
-
-        } else {
-            console.error("Producto no encontrado en productosSeleccionados:", productoNombre);
         }
     });
-    solutionButton.style.display = "block"; // Mostrar botón de solución
+
+    solutionButton.style.display = "block";
 }
 
-// Función para mostrar las soluciones correctas
+// Muestra las soluciones correctas
 function mostrarSolucion() {
-    solutionBoard.innerHTML = ""; // Limpiar soluciones previas
-    solutionBoard.style.display = "flex"; // Mostrar el contenedor de soluciones
+    solutionBoard.innerHTML = "";
+    solutionBoard.style.display = "flex";
 
     productosSeleccionados.forEach(producto => {
         const solutionRow = document.createElement("div");
@@ -284,7 +267,6 @@ function mostrarSolucion() {
         word.classList.add("word");
         word.textContent = producto.nombre;
 
-        // Crear elementos de texto para mostrar las respuestas correctas
         const correctSitio = document.createElement("span");
         correctSitio.classList.add("readonly-text");
         correctSitio.textContent = producto.sitio.nombre;
@@ -301,46 +283,45 @@ function mostrarSolucion() {
     });
 }
 
-
-// Función para resetear el juego
+// Resetea el juego
 function resetJuego() {
-    const gameBoard = document.getElementById("game-board");
-    gameBoard.innerHTML = ""; // Limpiar el tablero de juego
-    solutionBoard.innerHTML = ""; // Limpiar el tablero de soluciones
-    solutionBoard.style.display = "none"; // Ocultar el contenedor de soluciones
-    solutionButton.style.display = "none"; // Ocultar el botón de solución
+    document.getElementById("game-board").innerHTML = "";
+    solutionBoard.innerHTML = "";
+    solutionBoard.style.display = "none";
+    solutionButton.style.display = "none";
+
     productosSeleccionados = [];
     palabras = [];
-    inicializarJuego(); // Reiniciar el juego
+    inicializarJuego();
 }
 
-// Función para redirigir al menú
+// Redirige al menú principal
 function volverAlMenu() {
     window.location.assign("inicio.html");
 }
 
-// Función para mostrar la alerta
+// Muestra la alerta de validación
 function mostrarAlerta() {
     const alertOverlay = document.getElementById("alert-overlay");
-    alertOverlay.style.display = "flex"; // Usar flex para centrar el contenido
+    alertOverlay.style.display = "flex";
 }
 
-// Función para cerrar la alerta
+// Cierra la alerta de validación
 function ocultarAlerta() {
     const alertOverlay = document.getElementById("alert-overlay");
     alertOverlay.style.display = "none";
 }
 
-// Llama a finalizarJuego en el evento correspondiente (por ejemplo, cuando se valida el juego)
-
 // Eventos para los botones
 document.querySelector('.finish-button').addEventListener('click', () => {
     mostrarAlerta();
-    validarJuego();  // Validar respuestas del juego
-    finalizarJuego();  // Registrar el intento con el tiempo
+    validarJuego();
+    finalizarJuego();
 });
 solutionButton.addEventListener('click', mostrarSolucion);
 document.querySelector('.pause-button').addEventListener('click', pausarJuego);
 document.querySelector('.reset-button').addEventListener('click', resetJuego);
 document.querySelector('.menu-button').addEventListener('click', volverAlMenu);
+
+// Inicializar el juego al cargar la página
 document.addEventListener("DOMContentLoaded", inicializarJuego);
