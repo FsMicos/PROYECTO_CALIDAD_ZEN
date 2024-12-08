@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
@@ -12,6 +14,59 @@ body {
     min-height: 100vh;
     background-color: #A6CEE3;
     color: #4D4D4D;
+    padding-top: 100px;
+}
+
+/* Encabezado fijo */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.pause-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFD700;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pause-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+.paused {
+    opacity: 0.5;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.zoom-controls img {
+    width: 45px;
+    height: auto;
+    cursor: pointer;
 }
 
 .container {
@@ -22,40 +77,25 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-/* Estilos para los títulos de columna */
-.column-titles {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-weight: bold;
-    color: #4D4D4D;
-    padding: 10px 0;
-}
-
-.column-titles .title-img {
-    width: 50px;
-}
-
-.column-titles .title-word {
-    flex: 1;
-    text-align: left;
-}
-
-.column-titles .title-select {
-    width: 200px;
-    text-align: center;
+    transform: scale(1.5);
+    transform-origin: top center;
 }
 
 .game-board {
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+option {
+    font-size: 18px;
+}
+
+select {
+    min-width: 200px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
 }
 
 .row {
@@ -106,13 +146,21 @@ h1 {
     background-color: hsl(90, 47%, 80%);
 }
 
-/* Clases para fondo verde y rojo */
+/* Clases para colores de respuestas */
 .correct {
-    background-color: #4eb653 !important; /* Verde */
+    border: 4px solid #4eb653 !important;
+}
+
+.half-correct {
+    border: 4px solid #FFD700 !important;
 }
 
 .incorrect {
-    background-color: #c63637 !important; /* Rojo */
+    border: 4px solid #c63637 !important;
+}
+
+.empty {
+    border: 4px solid #FFD700 !important;
 }
 
 /* Clase para cambiar el color del texto a blanco */
@@ -120,7 +168,7 @@ h1 {
     color: #FFFFFF !important;
 }
 
-/* Estilos para los botones de volver a jugar y regresar*/
+/* Estilos para los botones de volver a jugar y regresar */
 .reset-button {
     width: 100%;
     padding: 12px;
@@ -157,11 +205,11 @@ h1 {
     background-color: hsl(50, 80%, 70%);
 }
 
-/* Estilos para los botones de ver solucion*/
+/* Estilos para los botones de ver solución */
 .solution-button {
     width: 100%;
     padding: 12px;
-    background-color: #FFA500; /* Naranja para diferenciar */
+    background-color: #FFA500;
     color: #4D4D4D;
     border: none;
     border-radius: 8px;
@@ -186,7 +234,7 @@ h1 {
 /* Estilo para el texto que simula un combo box no editable */
 .readonly-text {
     display: inline-block;
-    width: 200px; /* Mismo ancho que los combo boxes */
+    width: 200px;
     padding: 10px;
     background-color: #FFFFFF;
     color: #4D4D4D;
@@ -196,28 +244,74 @@ h1 {
     text-align: center;
 }
 
-.zoom-controls {
+.row {
     display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .zoom-controls button {
+    justify-content: space-between;
+    align-items: center;
     padding: 10px;
-    font-size: 18px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+/* Estilos para la alerta personalizada */
+#alert-overlay, #paused-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 9999;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Contenedor del cuadro de alerta */
+#alert-box, #alert-box-paused {
+    background-color: white;
+    width: 450px;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    position: relative;
+}
+
+/* Estilos para la imagen */
+#alert-box img {
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+#alert-box-paused img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+/* Estilos para el texto de la alerta */
+#alert-box p, #alert-box-paused p {
+    font-size: 24px;
     font-weight: bold;
-    background-color: #A6CEE3;
-    color: #4D4D4D;
+    margin: 0 0 20px;
+    color: #333;
+}
+
+/* Estilos para el botón de la alerta */
+#alert-box button, #alert-box-paused button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background-color 0.3s;
-  }
-  
-  .zoom-controls button:hover {
-    background-color: hsl(200, 47%, 80%);
-  }
-  
+    font-size: 24px;
+}
 
-
+#alert-box button:hover, #alert-box-paused button:hover {
+    background-color: #45a049;
+}

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
+</head>
+<body>
+    <div id="alert-overlay">
+        <div id="alert-box">
+          <img src="../assets/img/warning.png" alt="Aviso" />
+          <p id="alert-message"></p>
+          <button onclick="closeAlert()">Aceptar</button>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <h2>Iniciar Sesión</h2>
+        <form id="loginForm" method="post">
+            <div class="form-row">
+                <img src="../assets/img/user.png" alt="Usuario">
+                <input type="text" id="username" name="username" placeholder="Ingresa tu usuario">
+            </div>
+
+            <div class="form-row">
+                <img src="../assets/img/lock.png" alt="Usuario">
+                <input type="password" id="password" name="password" placeholder="Ingresa tu contraseña">    
+            </div>
+
+            <button type="submit">Ingresar</button>
+        </form>
+    </div>
+    <script src="../assets/js/login.js"></script>
+</body>
+</html>

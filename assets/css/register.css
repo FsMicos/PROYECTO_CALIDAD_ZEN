@@ -1,0 +1,120 @@
+body {
+    height: 100vh;
+}
+
+.register-container {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 500px;
+}
+
+.register-container input {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.error-message {
+    color: #cd5c5c;
+    font-size: 14px;
+    padding: 0;
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;   
+    background-color: hsl(90, 47%, 75%);
+    color: #4D4D4D;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color:hsl(90, 47%, 80%);
+}
+
+.register-button {
+    background-color: #FFD700;
+}
+
+.register-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+/* Estilos para la alerta personalizada */
+#alert-overlay-success, #alert-overlay-error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente más oscuro */
+    z-index: 9999; /* Asegurarse de que esté encima de otros elementos */
+    display: none; /* Ocultar por defecto */
+    justify-content: center;
+    align-items: center; /* Centrar el contenido verticalmente */
+}
+
+/* Contenedor del cuadro de alerta */
+#alert-box-success, #alert-box-error {
+    background-color: white;
+    width: 300px; /* Ancho del cuadro */
+    padding: 40px;
+    border-radius: 15px; /* Bordes redondeados */
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+    position: relative;
+}
+
+/* Estilos para la imagen */
+#alert-box-success img, #alert-box-error img {
+    width: 100px; /* Tamaño de la imagen */
+    height: auto; /* Tamaño de la imagen */
+    margin-bottom: 20px; /* Espacio debajo de la imagen */
+}
+
+/* Estilos para el texto de la alerta */
+#alert-box-success p, #alert-box-error p {
+    font-size: 18px; /* Tamaño de la fuente del mensaje */
+    margin: 0 0 20px; /* Espaciado inferior */
+    color: #333; /* Color del texto */
+}
+
+/* Estilos para el botón de la alerta */
+#alert-box-success button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #B2DF8A; /* Color de fondo del botón */
+    color: #333; /* Color del texto del botón */
+    border: none; /* Sin bordes */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor al pasar por encima */
+    font-size: 18px; /* Tamaño del texto del botón */
+}
+
+#alert-box-success button:hover {
+    background-color: hsl(90, 47%, 80%); /* Cambio de color al pasar el mouse */
+}
+
+/* Estilos para el botón de la alerta */
+#alert-box-error button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    background-color: #FFD700; /* Color de fondo del botón */
+    color: #333; /* Color del texto del botón */
+    border: none; /* Sin bordes */
+    border-radius: 10px; /* Bordes redondeados */
+    cursor: pointer; /* Cambio de cursor al pasar por encima */
+    font-size: 18px; /* Tamaño del texto del botón */
+}
+
+#alert-box-error button:hover {
+    background-color: hsl(50, 80%, 70%); /* Cambio de color al pasar el mouse */
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de Paciente</title>
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/register.css">
+</head>
+<body>
+    <div id="alert-overlay-success">
+        <div id="alert-box-success">
+          <img src="../assets/img/accept.png" alt="ok"/>
+          <p>Paciente registrado con éxito</p>
+          <button onclick="closeSuccessAlert()">Aceptar</button>
+        </div>
+    </div>
+
+    <div id="alert-overlay-error">
+        <div id="alert-box-error">
+          <img src="../assets/img/warning.png" alt="aviso"/>
+          <p id="alert-message-error"></p>
+          <button onclick="closeErrorAlert()">Aceptar</button>
+        </div>
+    </div>
+
+    <div class="register-container">
+        <h1>Registrar Paciente</h1>
+        <form id="registroPacienteForm">
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <p id="nombreError" class="error-message"></p>
+
+            <label for="apellido">Apellido:</label>
+            <input type="text" id="apellido" name="apellido" required>
+            <p id="apellidoError" class="error-message"></p>
+
+            <label for="edad">Edad:</label>
+            <input type="number" id="edad" name="edad" required>
+            <p id="edadError" class="error-message"></p>
+
+            <button type="submit" class="register-button">Registrar Paciente</button>
+        </form>
+        <p id="mensaje" class="error-message"></p>
+
+        <!-- Botón para volver al inicio -->
+        <button id="volverInicioButton" class="button">Volver al Inicio</button>
+    </div>
+    <script src="../assets/js/registro-paciente.js"></script>
+</body>
+</html>
