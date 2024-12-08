@@ -27,6 +27,10 @@ const Intento = sequelize.define('Intento', {
         type: DataTypes.INTEGER,
         defaultValue: 0,
     },
+    vacios: {
+        type: DataTypes.INTEGER,
+        defaultValue: 0,
+    },
 }, {
     tableName: 'Intento',
     timestamps: false,

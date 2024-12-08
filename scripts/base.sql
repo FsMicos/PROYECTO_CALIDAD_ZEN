@@ -58,3 +58,7 @@ CREATE TABLE Intento (
 ALTER TABLE Intento
 ADD COLUMN aciertos INT NOT NULL DEFAULT 0,
 ADD COLUMN fallos INT NOT NULL DEFAULT 0;
+
+-- Modificar la tabla Intento para incluir vacios
+ALTER TABLE Intento
+ADD COLUMN vacios INT NOT NULL DEFAULT 0;

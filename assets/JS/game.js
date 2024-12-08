@@ -6,6 +6,9 @@ let profesionalesUnicos = [];
 let tiempoInicio; // Hora de inicio del juego
 let tiempoAcumulado = 0; // Tiempo acumulado antes de pausar
 let juegoPausado = false; // Estado del juego
+let aciertos = 0; 
+let fallos = 0; 
+let vacios = 0;
 
 // Elementos del DOM
 const solutionButton = document.querySelector('.solution-button'); // Botón Mostrar Solución
@@ -21,6 +24,9 @@ if (!pacienteId) {
 
 // Función para inicializar los datos de productos y cargar el tablero
 async function inicializarJuego() {
+    aciertos = 0;
+    fallos = 0;
+    vacios = 0;
     try {
         // Registrar el inicio del juego
         tiempoInicio = new Date();
@@ -85,6 +91,9 @@ async function registrarIntento(tiempo) {
             body: JSON.stringify({
                 id_paciente: pacienteId, // id del paciente capturado de la URL
                 tiempo: tiempo, // Tiempo calculado en segundos
+                aciertos: aciertos,
+                fallos: fallos,
+                vacios: vacios,
             }),
         });
 
@@ -106,6 +115,7 @@ async function registrarIntento(tiempo) {
 // Al finalizar el juego, calcula el tiempo y registra el intento
 function finalizarJuego() {
     const tiempo = calcularTiempo(); // Calcular tiempo del juego
+    console.log(`Aciertos: ${aciertos}, Fallos: ${fallos}, Vacíos: ${vacios}`);
     registrarIntento(tiempo); // Registrar el intento en la base de datos
     // alert(`Juego finalizado. Tiempo total: ${tiempo} segundos`);
 }
@@ -155,13 +165,26 @@ function crearFila(producto) {
     return row;
 }
 
+// Función para mezclar un array
+function mezclarArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
 // Función para agregar múltiples opciones al select
 function agregarOpcionesSelect(select, items, defaultText) {
+    // Mezcla las opciones antes de agregarlas
+    mezclarArray(items);
+
+    // Agrega la opción por defecto
     const defaultOption = document.createElement("option");
     defaultOption.value = "";
     defaultOption.textContent = defaultText;
     select.appendChild(defaultOption);
 
+    // Agrega las opciones aleatorias
     items.forEach(item => {
         const option = document.createElement("option");
         option.value = item.nombre.toLowerCase().replace(/\s+/g, '-');
@@ -186,6 +209,9 @@ function cargarPalabras() {
 
 // Función para validar el juego
 function validarJuego() {
+    aciertos = 0;
+    fallos = 0;
+    vacios = 0;
     console.log("Juego finalizado");
     const filas = document.querySelectorAll(".row");
 
@@ -209,7 +235,7 @@ function validarJuego() {
             fila.classList.remove("correct", "incorrect", "empty", "half-correct");
             wordElement.classList.remove("text-white");
 
-            if (sitioSeleccionado === "" && profesionalSeleccionado === "") {
+            if (sitioSeleccionado === "" || profesionalSeleccionado === "") {
                 fila.classList.add("empty");
             } else {
                 if (sitioValido && profesionalValido) {
@@ -220,6 +246,23 @@ function validarJuego() {
                     fila.classList.add("incorrect");
                 }
             }
+
+            // Inicializa indicadores de vacío
+            const sitioEsVacio = !sitioSeleccionado;
+            const profesionalEsVacio = !profesionalSeleccionado;
+
+            // Incrementa vacíos si no se seleccionó un sitio o profesional
+            if (sitioEsVacio) vacios++;
+            if (profesionalEsVacio) vacios++;
+
+            // Incrementa aciertos si el sitio o el profesional son válidos
+            aciertos += sitioValido ? 1 : 0;
+            aciertos += profesionalValido ? 1 : 0;
+
+            // Incrementa fallos solo si no es un vacío y no es válido
+            if (!sitioEsVacio && !sitioValido) fallos++;
+            if (!profesionalEsVacio && !profesionalValido) fallos++;
+
 
         } else {
             console.error("Producto no encontrado en productosSeleccionados:", productoNombre);

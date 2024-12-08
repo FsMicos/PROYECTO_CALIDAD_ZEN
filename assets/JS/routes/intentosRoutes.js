@@ -4,7 +4,7 @@ const Intento = require('../models/Intento'); // Modelo Intento
 
 // Endpoint para crear un nuevo intento
 router.post('/intentos', async (req, res) => {
-    const { id_paciente, tiempo } = req.body;
+    const { id_paciente, tiempo, aciertos, fallos, vacios } = req.body;
 
     try {
         // Crear el intento en la base de datos
@@ -12,6 +12,9 @@ router.post('/intentos', async (req, res) => {
             id_paciente: id_paciente,
             fecha: new Date(), // Fecha actual
             tiempo: tiempo,
+            aciertos: aciertos,
+            fallos: fallos,
+            vacios: vacios,
         });
 
         res.status(201).json(intento);

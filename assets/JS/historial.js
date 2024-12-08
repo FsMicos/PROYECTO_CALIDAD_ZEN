@@ -20,6 +20,7 @@ async function cargarHistorial() {
                 <td>${index + 1}</td>
                 <td>${intento.aciertos}</td>
                 <td>${intento.fallos}</td>
+                <td>${intento.vacios}</td>
                 <td>${new Date(intento.fecha).toLocaleDateString()}</td>
                 <td>${Math.floor(intento.tiempo / 60)}:${String(intento.tiempo % 60).padStart(2, '0')}</td>
             `;
