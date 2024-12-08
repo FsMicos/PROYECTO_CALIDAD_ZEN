@@ -1,17 +1,17 @@
-let zoomLevel = 1;
+let zoomLevel = 1.5;
 const maxZoom = 2; // Nivel máximo de zoom (200%)
 const minZoom = 0.5; // Nivel mínimo de zoom (50%)
 
 function zoomIn() {
   if (zoomLevel < maxZoom) {
-    zoomLevel += 0.25;
+    zoomLevel += 0.1;
     applyZoom();
   }
 }
 
 function zoomOut() {
   if (zoomLevel > minZoom) {
-    zoomLevel -= 0.25;
+    zoomLevel -= 0.1;
     applyZoom();
   }
 }

@@ -1,0 +1,91 @@
+/* Contenedor principal */
+.container {
+    background-color: #FFFFFF;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: center;
+    width: 80%; /* Ancho del contenedor */
+    max-width: 800px; /* Ancho máximo */
+}
+
+/* Título */
+.container h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+/* Tabla */
+#historial-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+/* Cabecera de la tabla */
+#historial-table thead tr {
+    background-color: #B2DF8A; /* Color de fondo para la cabecera */
+    color: #333;
+    font-weight: bold;
+}
+
+/* Celdas de la cabecera */
+#historial-table th {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 2px solid #ddd; /* Línea separadora */
+}
+
+/* Filas de la tabla */
+#historial-table tbody tr {
+    background-color: #FFF;
+    transition: background-color 0.3s;
+}
+
+/* Estilo de las filas alternadas */
+#historial-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover en filas */
+#historial-table tbody tr:hover {
+    background-color: #E8F5E9; /* Color claro al pasar el cursor */
+}
+
+/* Celdas de la tabla */
+#historial-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px;
+    color: #4D4D4D;
+}
+
+/* Botón */
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: hsl(90, 47%, 75%);
+    color: #4D4D4D;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* Hover del botón */
+button:hover {
+    background-color: hsl(90, 47%, 80%);
+}
+
+/* Botón personalizado para volver */
+.menu-button {
+    background-color: #FFD700;
+}
+
+.menu-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}

@@ -60,33 +60,21 @@ function calcularTiempo() {
     }
 }
 function pausarJuego() {
-    const pauseButton = document.querySelector('.pause-button');
-    const gameBoard = document.querySelector('.game-board');
-    const pausedOverlay = document.getElementById('paused-overlay');
+    juegoPausado = true;
+    tiempoAcumulado = new Date() - tiempoInicio;
 
-    if (juegoPausado) {
-        // Reanudar el juego
-        juegoPausado = false;
-        tiempoInicio = new Date() - tiempoAcumulado;
-        tiempoInicio = new Date(tiempoInicio);
-        pauseButton.textContent = "Pausar";
-
-        // Quitar efecto de pausa
-        gameBoard.classList.remove('paused');
-        pausedOverlay.style.display = "none";
-        console.log("Juego reanudado");
-    } else {
-        // Pausar el juego
-        juegoPausado = true;
-        tiempoAcumulado = new Date() - tiempoInicio;
-        pauseButton.textContent = "Reanudar";
-
-        // Aplicar efecto de pausa
-        gameBoard.classList.add('paused');
-        pausedOverlay.style.display = "flex";
-        console.log("Juego pausado");
-    }
+    const alertOverlay = document.getElementById("paused-overlay");
+    alertOverlay.style.display = "flex";
 }
+
+function reanudarJuego() {
+    juegoPausado = false;
+    tiempoInicio = new Date() - tiempoAcumulado;
+    tiempoInicio = new Date(tiempoInicio);
+    const alertOverlay = document.getElementById("paused-overlay");
+    alertOverlay.style.display = "none";
+}
+
 
 // Función para calcular y enviar un nuevo intento
 async function registrarIntento(tiempo) {
@@ -139,7 +127,7 @@ function crearFila(producto) {
 
     // Agregar eventos de zoom a las imagenes
     img.addEventListener('mouseover', () => {
-        img.style.transform = "scale(2)"; // Cambiar el nivel de zoom aquí
+        img.style.transform = "scale(1.25)"; // Cambiar el nivel de zoom aquí
         img.style.transition = "transform 0.3s ease"; // Animación suave
     });
 
@@ -289,13 +277,13 @@ function volverAlMenu() {
 }
 
 // Función para mostrar la alerta
-function showAlert() {
+function mostrarAlerta() {
     const alertOverlay = document.getElementById("alert-overlay");
     alertOverlay.style.display = "flex"; // Usar flex para centrar el contenido
 }
 
 // Función para cerrar la alerta
-function closeAlert() {
+function ocultarAlerta() {
     const alertOverlay = document.getElementById("alert-overlay");
     alertOverlay.style.display = "none";
 }
@@ -304,7 +292,7 @@ function closeAlert() {
 
 // Eventos para los botones
 document.querySelector('.finish-button').addEventListener('click', () => {
-    showAlert();
+    mostrarAlerta();
     validarJuego();  // Validar respuestas del juego
     finalizarJuego();  // Registrar el intento con el tiempo
 });

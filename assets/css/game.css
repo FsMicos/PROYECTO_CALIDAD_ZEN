@@ -15,7 +15,63 @@ body {
     min-height: 100vh;
     background-color: #A6CEE3;
     color: #4D4D4D;
+    padding-top: 100px;
 }
+/* Encabezado fijo */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    padding: 0 20px;
+    background-color: #FFFFFF;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra para diferenciar del contenido */
+    z-index: 1000; /* Asegura que esté sobre otros elementos */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.pause-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #FFD700; /* Amarillo */
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.pause-button:hover {
+    background-color: hsl(50, 80%, 70%);
+}
+
+.paused {
+    opacity: 0.5; /* Reducir opacidad */
+    pointer-events: none; /* Deshabilitar interacciones */
+    transition: opacity 0.3s ease; /* Transición suave */
+}
+
+.zoom-controls {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+  
+.zoom-controls i {
+    font-size: 36px;
+    font-weight: bold;
+    color: #4D4D4D;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+  
 
 .container {
     width: 90%;
@@ -25,39 +81,8 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-}
-
-h1 {
-    margin-bottom: 20px;
-}
-
-/* Estilos para los títulos de columna */
-.column-titles {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    font-weight: bold;
-    color: #4D4D4D;
-    padding: 10px 0;
-}
-
-.column-titles .title-img {
-    width: 50px;
-}
-
-.column-titles .title-word {
-    flex: 1;
-    text-align: left;
-}
-
-.column-titles .title-select {
-    width: 200px;
-    text-align: center;
-}
-
-.column-titles i {
-    margin: 0;
-    padding: 0;
+    transform: scale(1.5);
+    transform-origin: top center;
 }
 
 .game-board {
@@ -65,6 +90,18 @@ h1 {
     flex-direction: column;
     gap: 10px;
 }
+
+option {
+    font-size: 18px;
+}
+
+select {
+    min-width: 200px;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
 
 .row {
     display: flex;
@@ -79,11 +116,6 @@ h1 {
 .row-image {
     width: 50px;
     height: 50px;
-    border-radius: 5px;
-}
-.usuario-image {
-    width: 200px;
-    height: 200px;
     border-radius: 5px;
 }
 
@@ -119,7 +151,7 @@ h1 {
     background-color: hsl(90, 47%, 80%);
 }
 
-/* Clases para fondo verde y rojo */
+/* Clases para colores de respuestas */
 .correct {
     border: 4px solid #4eb653 !important; /* Verde */
 }
@@ -217,33 +249,6 @@ h1 {
     text-align: center;
 }
 
-.zoom-controls {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-  
-.zoom-controls i {
-    font-size: 28px;
-    font-weight: bold;
-    color: #4D4D4D;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-  
-  .zoom-controls button:hover {
-    background-color: hsl(200, 47%, 80%);
-  }
-  
-  #historial-container {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
 .row {
     display: flex;
     justify-content: space-between;
@@ -255,7 +260,7 @@ h1 {
 }
 
 /* Estilos para la alerta personalizada */
-#alert-overlay {
+#alert-overlay, #paused-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -269,7 +274,7 @@ h1 {
   }
   
   /* Contenedor del cuadro de alerta */
-  #alert-box {
+  #alert-box, #alert-box-paused {
     background-color: white;
     width: 450px; /* Ancho del cuadro */
     padding: 40px;
@@ -280,14 +285,20 @@ h1 {
   }
   
   /* Estilos para la imagen */
-  #alert-box img {
-    width: 200px; /* Tamaño de la imagen */
-    height: auto; /* Tamaño de la imagen */
-    margin-bottom: 20px; /* Espacio debajo de la imagen */
+  #alert-box img{
+    width: 200px;
+    height: auto;
+    margin-bottom: 20px;
   }
+
+#alert-box-paused img {
+    width: 150px;
+    height: auto;
+    margin-bottom: 20px;
+}
   
   /* Estilos para el texto de la alerta */
-  #alert-box p {
+  #alert-box p, #alert-box-paused p {
     font-size: 24px; /* Tamaño de la fuente del mensaje */
     font-weight: bold; /* Fuente en negrita */
     margin: 0 0 20px; /* Espaciado inferior */
@@ -295,7 +306,7 @@ h1 {
   }
   
   /* Estilos para el botón de la alerta */
-  #alert-box button {
+  #alert-box button, #alert-box-paused button {
     margin-top: 20px;
     padding: 15px 30px;
     background-color: #4CAF50; /* Color de fondo del botón */
@@ -303,53 +314,9 @@ h1 {
     border: none; /* Sin bordes */
     border-radius: 10px; /* Bordes redondeados */
     cursor: pointer; /* Cambio de cursor al pasar por encima */
-    font-size: 18px; /* Tamaño del texto del botón */
+    font-size: 24px; /* Tamaño del texto del botón */
   }
   
-  #alert-box button:hover {
+  #alert-box button:hover, #alert-box-paused button:hover {
     background-color: #45a049; /* Cambio de color al pasar el mouse */
   }
-  
-  .pause-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #FFD700; /* Amarillo */
-    color: #4D4D4D;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-bottom: 20px;
-    transition: background-color 0.3s;
-}
-
-.pause-button:hover {
-    background-color: hsl(50, 80%, 70%);
-}
-
-.paused {
-    opacity: 0.5; /* Reducir opacidad */
-    pointer-events: none; /* Deshabilitar interacciones */
-    transition: opacity 0.3s ease; /* Transición suave */
-}
-
-.paused-overlay {
-    position: fixed; /* Fijo para cubrir toda la ventana */
-    top: 0;
-    left: 0;
-    width: 100%; /* Ancho completo */
-    height: 100%; /* Alto completo */
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro con opacidad */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    z-index: 1000; /* Asegura que está por encima de otros elementos */
-    pointer-events: none; /* Evitar interacción con la capa */
-    display: none; /* Ocultar inicialmente */
-}
-
-
