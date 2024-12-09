@@ -5,14 +5,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Juego</title>
-    <link rel="stylesheet" href="../assets/css/game.css" />
+    <link rel="stylesheet" href="./assets/css/game.css" />
 </head>
 
 <body>
     <!-- Contenedor de la alerta personalizada -->
     <div id="alert-overlay">
         <div id="alert-box">
-            <img src="../assets/img/party-popper.gif" alt="Icono de Felicitaciones" />
+            <img src="./assets/img/party-popper.gif" alt="Icono de Felicitaciones" />
             <p>¡Felicitaciones!<br>Has finalizado el juego</p>
             <button onclick="ocultarAlerta()">Aceptar</button>
         </div>
@@ -20,7 +20,7 @@
 
     <div id="paused-overlay">
         <div id="alert-box-paused">
-            <img src="../assets/img/clock.png" alt="Reloj" />
+            <img src="./assets/img/clock.png" alt="Reloj" />
             <p>Juego Pausado</p>
             <button onclick="reanudarJuego()">Reanudar Juego</button>
         </div>
@@ -32,8 +32,8 @@
         </div>
         <h1>Juego de Selección de Palabras</h1>
         <div class="zoom-controls">
-            <img src="../assets/img/zoom-in.png" alt="Aumentar Zoom" title="Aumentar Zoom" onclick="zoomIn()">
-            <img src="../assets/img/zoom-out.png" alt="Reducir Zoom" title="Reducir Zoom" onclick="zoomOut()">
+            <img src="./assets/img/zoom-in.png" alt="Aumentar Zoom" title="Aumentar Zoom" onclick="zoomIn()">
+            <img src="./assets/img/zoom-out.png" alt="Reducir Zoom" title="Reducir Zoom" onclick="zoomOut()">
         </div>
     </header>
 
@@ -59,8 +59,8 @@
         <button class="menu-button">Volver al Menú</button>
     </div>
     <!-- Vinculación del script de juego -->
-    <script src="../assets/js/game.js"></script>
-    <script src="../assets/js/zoom.js"></script>
+    <script src="./assets/js/game.js"></script>
+    <script src="./assets/js/zoom.js"></script>
 </body>
 
 </html>

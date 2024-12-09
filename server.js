@@ -2,22 +2,24 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const Paciente = require('./models/Paciente'); // Importar el modelo Paciente
-const Intento = require('./models/Intento');   // Importar el modelo Intento
+const Paciente = require('./js/models/Paciente'); // Importar el modelo Paciente
+const Intento = require('./js/models/Intento');   // Importar el modelo Intento
 
 // Definir relaciones
 Paciente.hasMany(Intento, { foreignKey: 'id_paciente' });
 Intento.belongsTo(Paciente, { foreignKey: 'id_paciente' });
 
-const authRoutes = require('./routes/authRoutes');       // Rutas de autenticación
-const productoRoutes = require('./routes/productoRoutes'); // Rutas de productos
-const pacientesRoutes = require('./routes/pacientesRoutes'); // Rutas de pacientes
-const intentosRoutes = require('./routes/intentosRoutes');   // Ruta de intentos
+const authRoutes = require('./js/routes/authRoutes');       // Rutas de autenticación
+const productoRoutes = require('./js/routes/productoRoutes'); // Rutas de productos
+const pacientesRoutes = require('./js/routes/pacientesRoutes'); // Rutas de pacientes
+const intentosRoutes = require('./js/routes/intentosRoutes');   // Ruta de intentos
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use(express.static('public'));
 
 // Usar las rutas
 app.use('/api', authRoutes);       // Montar rutas de autenticación bajo /api
