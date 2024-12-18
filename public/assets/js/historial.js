@@ -2,10 +2,13 @@ const historialTableBody = document.querySelector('#historial-table tbody');
 const urlParams = new URLSearchParams(window.location.search);
 const pacienteId = urlParams.get('pacienteId'); // ID del paciente obtenido de la URL
 
+// Obtener la base del servidor actual
+const apiBaseUrl = `${window.location.origin}/api`;
+
 // Función para obtener y mostrar el historial del paciente
 async function cargarHistorial() {
     try {
-        const response = await fetch(`http://localhost:3000/api/intentos/${pacienteId}`);
+        const response = await fetch(`${apiBaseUrl}/intentos/${pacienteId}`);
         if (!response.ok) {
             throw new Error('Error al obtener el historial');
         }

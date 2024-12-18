@@ -1,3 +1,6 @@
+// Obtener la base del servidor actual
+const apiBaseUrl = `${window.location.origin}/api`;
+
 document.getElementById('loginForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -5,7 +8,7 @@ document.getElementById('loginForm').addEventListener('submit', async (event) =>
     const password = document.getElementById('password').value;
 
     try {
-        const response = await fetch('http://localhost:3000/api/login', {
+        const response = await fetch(`${apiBaseUrl}/login`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ usuario: username, contrasena: password }),

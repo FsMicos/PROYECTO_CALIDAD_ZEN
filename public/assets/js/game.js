@@ -18,6 +18,10 @@ const solutionBoard = document.getElementById('solution-board'); // Contenedor d
 const urlParams = new URLSearchParams(window.location.search);
 const pacienteId = urlParams.get('pacienteId');
 
+// Obtener la base del servidor actual
+const apiBaseUrl = `${window.location.origin}/api`;
+
+
 // Redirige al inicio si no se proporciona un ID de paciente
 if (!pacienteId) {
     console.error('No se proporcionó el ID del paciente');
@@ -34,7 +38,7 @@ async function inicializarJuego() {
         tiempoInicio = new Date(); // Registrar el inicio del juego
 
         // Obtener productos desde la API
-        const response = await fetch('http://localhost:3000/api/productos');
+        const response = await fetch(`${apiBaseUrl}/productos`);
         const productosAleatorios = await response.json();
 
         console.log('Productos obtenidos:', productosAleatorios);
@@ -84,7 +88,7 @@ function reanudarJuego() {
 // Función para registrar un intento en la base de datos
 async function registrarIntento(tiempo) {
     try {
-        const response = await fetch('http://localhost:3000/api/intentos', {
+        const response = await fetch(`${apiBaseUrl}/intentos`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -123,7 +127,7 @@ function crearFila(producto) {
     // Imagen del producto
     const img = document.createElement("img");
     img.src = producto.ruta_imagen_producto;
-    img.alt = "Imagen de ejemplo";
+    img.alt = "Imagen del producto";
     img.classList.add("row-image");
 
     // Eventos de zoom

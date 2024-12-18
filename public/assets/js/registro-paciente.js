@@ -1,3 +1,6 @@
+// Obtener la base del servidor actual
+const apiBaseUrl = `${window.location.origin}/api`;
+
 document.getElementById('registroPacienteForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
@@ -24,7 +27,7 @@ document.getElementById('registroPacienteForm').addEventListener('submit', async
     }
 
     try {
-        const response = await fetch('http://localhost:3000/api/pacientes', {
+        const response = await fetch(`${apiBaseUrl}/pacientes`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ nombre, apellido, edad }),

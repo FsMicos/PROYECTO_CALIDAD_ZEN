@@ -1,8 +1,11 @@
 const patientList = document.getElementById('patient-list');
 
+// Obtener la base del servidor actual
+const apiBaseUrl = `${window.location.origin}/api`;
+
 async function inicializarPagina() {
     try {
-        const response = await fetch('http://localhost:3000/api/pacientes');
+        const response = await fetch(`${apiBaseUrl}/pacientes`);
         const pacientes = await response.json();
 
         pacientes.forEach(paciente => {
