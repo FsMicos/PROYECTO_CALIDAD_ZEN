@@ -1,6 +1,7 @@
 document.getElementById('registroPacienteForm').addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    const cedula = document.getElementById('cedula').value.trim();
     const nombre = document.getElementById('nombre').value.trim();
     const apellido = document.getElementById('apellido').value.trim();
     const edad = document.getElementById('edad').value;
@@ -8,6 +9,11 @@ document.getElementById('registroPacienteForm').addEventListener('submit', async
     clearErrorMessages(); // Limpiar mensajes de error previos
 
     // Validaciones de los campos de entrada
+    //Validacion que en la cedula solo contenga 10 numeros
+    if (!/^\d{10}$/.test(cedula)) {
+        showErrorCedulaMessage('La cédula debe contener 10 números.');
+        return;
+    }11
     if (!/^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/.test(nombre)) {
         showErrorNombreMessage('El nombre solo debe contener letras.');
         return;
@@ -27,27 +33,35 @@ document.getElementById('registroPacienteForm').addEventListener('submit', async
         const response = await fetch('http://localhost:3000/api/pacientes', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ nombre, apellido, edad }),
+            body: JSON.stringify({ cedula, nombre, apellido, edad }),
         });
-
+    
         const data = await response.json();
-
+    
         if (response.ok) {
             showSuccessAlert(); // Muestra una alerta de éxito
+        } else if (response.status === 400) {
+            showErrorCedulaMessage(data.message); // Muestra el error específico
         } else {
-            showErrorAlert(data.message || 'Error al registrar el paciente'); // Muestra un error enviado por el servidor
+            showErrorAlert(data.message || 'Error al registrar el paciente'); // Muestra un error genérico
         }
     } catch (error) {
         console.error('Error al enviar la solicitud:', error);
         showErrorAlert('Error en el servidor');
-    }
+    }    
 });
 
 // Limpiar mensajes de error en los campos de entrada
 function clearErrorMessages() {
+    showErrorCedulaMessage('');
     showErrorNombreMessage('');
     showErrorApellidoMessage('');
     showErrorEdadMessage('');
+}
+
+// Muestra un mensaje de error asociado a la cédula
+function showErrorCedulaMessage(message) {
+    document.getElementById('cedulaError').textContent = message;
 }
 
 // Muestra un mensaje de error asociado al nombre

@@ -40,25 +40,20 @@ CREATE TABLE Medico (
 
 -- Crear la tabla Paciente
 CREATE TABLE Paciente (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    cedula VARCHAR(10) PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     apellido VARCHAR(100) NOT NULL,
     edad INT NOT NULL
 );
+
 -- Crear la tabla Intento
 CREATE TABLE Intento (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    id_paciente INT NOT NULL,
+    id_paciente VARCHAR(10) NOT NULL,
     fecha DATETIME NOT NULL,
     tiempo INT NOT NULL, -- Tiempo en segundos
-    FOREIGN KEY (id_paciente) REFERENCES Paciente(id)
+    aciertos INT NOT NULL DEFAULT 0,
+    fallos INT NOT NULL DEFAULT 0,
+    vacios INT NOT NULL DEFAULT 0,
+    FOREIGN KEY (id_paciente) REFERENCES Paciente(cedula)
 );
-
--- Modificar la tabla Intento para incluir aciertos y fallos
-ALTER TABLE Intento
-ADD COLUMN aciertos INT NOT NULL DEFAULT 0,
-ADD COLUMN fallos INT NOT NULL DEFAULT 0;
-
--- Modificar la tabla Intento para incluir vacios
-ALTER TABLE Intento
-ADD COLUMN vacios INT NOT NULL DEFAULT 0;

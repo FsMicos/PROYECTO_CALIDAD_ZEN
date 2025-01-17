@@ -27,6 +27,10 @@
     <div class="register-container">
         <h1>Registrar Paciente</h1>
         <form id="registroPacienteForm">
+            <label for="cedula">Cedula del paciente:</label>
+            <input type="text" id="cedula" name="cedula" required>
+            <p id="cedulaError" class="error-message"></p>
+
             <label for="nombre">Nombre:</label>
             <input type="text" id="nombre" name="nombre" required>
             <p id="nombreError" class="error-message"></p>

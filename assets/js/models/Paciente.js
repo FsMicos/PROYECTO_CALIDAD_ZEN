@@ -3,6 +3,11 @@ const sequelize = require('../config/database');
 
 // Definir el modelo Paciente
 const Paciente = sequelize.define('Paciente', {
+    cedula:{
+        type: DataTypes.STRING,
+        primaryKey: true,
+        allowNull: false,
+    },
     nombre: {
         type: DataTypes.STRING,
         allowNull: false,

@@ -25,18 +25,9 @@ INSERT INTO Profesional (nombre) VALUES
 ('Zapatero'),
 ('Florista');
 
-INSERT INTO Paciente (nombre, apellido, edad)
+INSERT INTO Paciente (cedula, nombre, apellido, edad)
 VALUES 
-    ('Michael', 'Trocellier', 28),
-    ('Laura', 'Martínez', 35),
-    ('Carlos', 'Pérez', 42),
-    ('Ana', 'Gómez', 30),
-    ('Javier', 'Rodríguez', 25),
-    ('María', 'Fernández', 33),
-    ('Luis', 'Torres', 50),
-    ('Elena', 'Vega', 27),
-    ('José', 'García', 29),
-    ('Claudia', 'López', 31);
+    ('0503099533', 'Michael', 'Trocellier', 28);
 
 -- Insertar productos relacionados con cada sitio y profesional
 INSERT INTO Producto (nombre, id_sitio, id_profesional, ruta_imagen_producto) VALUES 
