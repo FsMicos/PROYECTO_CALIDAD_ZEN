@@ -17,7 +17,7 @@ const solutionBoard = document.getElementById("solution-board"); // Contenedor d
 // Captura del ID del paciente desde la URL
 const urlParams = new URLSearchParams(window.location.search);
 const pacienteId = urlParams.get("pacienteId");
-
+console.log("ID del paciente:", pacienteId);
 // Redirige al inicio si no se proporciona un ID de paciente
 if (!pacienteId) {
   console.error("No se proporcionó el ID del paciente");

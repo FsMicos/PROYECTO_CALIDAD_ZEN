@@ -23,7 +23,7 @@ async function inicializarPagina() {
             historialButton.classList.add('button', 'historial-button');
             historialButton.textContent = 'Historial';
             historialButton.addEventListener('click', () => {
-                window.location.href = `historial.html?pacienteId=${paciente.id}`;
+                window.location.href = `historial.html?pacienteId=${paciente.cedula}`;
             });
 
             // Botón para iniciar el juego con el paciente
@@ -31,7 +31,7 @@ async function inicializarPagina() {
             jugarButton.classList.add('button', 'play-button');
             jugarButton.textContent = 'Jugar';
             jugarButton.addEventListener('click', () => {
-                window.location.href = `game.html?pacienteId=${paciente.id}`;
+                window.location.href = `game.html?pacienteId=${paciente.cedula}`;
             });
 
             // Ensamblar elementos en la fila y agregarla a la lista de pacientes
