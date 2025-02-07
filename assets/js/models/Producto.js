@@ -31,7 +31,7 @@ const Producto = sequelize.define('Producto', {
     timestamps: false
 });
 
-Producto.getRandomProducts = async function() {
+Producto.getRandomProducts = async function(cantidad) {
     try {
         const productos = await Producto.findAll({
             include: [
@@ -40,13 +40,14 @@ Producto.getRandomProducts = async function() {
             ]
         });
 
-        // Seleccionar 16 productos aleatorios
-        return productos.sort(() => 0.5 - Math.random()).slice(0, 16);
+        // Seleccionar productos aleatorios según la cantidad dada
+        return productos.sort(() => 0.5 - Math.random()).slice(0, cantidad);
     } catch (error) {
         console.error('Error al obtener productos aleatorios:', error);
         throw error;
     }
 };
+
 
 Producto.getSiteByProductName = async function(nombreProducto) {
     try {

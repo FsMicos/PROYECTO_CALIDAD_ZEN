@@ -33,8 +33,17 @@ async function inicializarJuego() {
   try {
     tiempoInicio = new Date(); // Registrar el inicio del juego
 
-    // Obtener productos desde la API
-    const response = await fetch("http://localhost:3000/api/productos");
+    // Obtener la cantidad de palabras desde la URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let cantidad = parseInt(urlParams.get("cantidad")) || 16; // Valor por defecto: 16
+
+    // Asegurar que la cantidad sea válida
+    if (cantidad < 1 || cantidad > 20) {
+      cantidad = 16;
+    }
+
+    // Obtener productos desde la API con la cantidad seleccionada
+    const response = await fetch(`http://localhost:3000/api/productos?cantidad=${cantidad}`);
     const productosAleatorios = await response.json();
 
     console.log("Productos obtenidos:", productosAleatorios);
@@ -66,6 +75,7 @@ async function inicializarJuego() {
     console.error("Error al inicializar el juego:", error);
   }
 }
+
 
 // Función para calcular el tiempo transcurrido
 function calcularTiempo() {
