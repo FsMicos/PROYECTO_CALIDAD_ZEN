@@ -42,7 +42,9 @@ document.getElementById('registroPacienteForm').addEventListener('submit', async
             showSuccessAlert(); // Muestra una alerta de éxito
         } else if (response.status === 400) {
             showErrorCedulaMessage(data.message); // Muestra el error específico
-        } else {
+        } else if(response.status === 401){
+            showErrorNombreMessage(data.message)
+        }else{    
             showErrorAlert(data.message || 'Error al registrar el paciente'); // Muestra un error genérico
         }
     } catch (error) {

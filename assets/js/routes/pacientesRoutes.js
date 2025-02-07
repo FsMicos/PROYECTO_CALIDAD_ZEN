@@ -19,10 +19,18 @@ router.post('/pacientes', async (req, res) => {
     const { cedula, nombre, apellido, edad } = req.body;
 
     try {
-        // Verificar si ya existe un paciente con la misma cédula
-        const pacienteExistente = await Paciente.findOne({ where: { cedula } });
+        // Verificar si ya existe un paciente con la misma cédula o el mismo nombre y apellido
+        const [pacienteExistente, pacienteExistenteNombre] = await Promise.all([
+            Paciente.findOne({ where: { cedula } }),
+            Paciente.findOne({ where: { nombre, apellido } })
+        ]);
+
         if (pacienteExistente) {
             return res.status(400).json({ message: 'El paciente con esta cédula ya está registrado.' });
+        }
+
+        if (pacienteExistenteNombre) {
+            return res.status(401).json({ message: 'Ya existe un paciente con este nombre y apellido.' });
         }
 
         // Crear un nuevo paciente si no existe

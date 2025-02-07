@@ -124,10 +124,24 @@ async function registrarIntento(tiempo) {
 
 // Finaliza el juego y registra el intento
 function finalizarJuego() {
+  const juegoCompleto = validarJuego(); // Verificamos si todas las respuestas son correctas
+
+  if (!juegoCompleto) {
+    console.warn("El juego no puede finalizar, aún hay respuestas incorrectas o vacías.");
+    mostrarAlertaIncompleta(); // Mostrar alerta de juego incompleto
+    return;
+  }
+
+  // Si el juego está completo, registrar el intento y mostrar la alerta de felicitaciones
   const tiempo = calcularTiempo();
   console.log(`Aciertos: ${aciertos}, Fallos: ${fallos}, Vacíos: ${vacios}`);
   registrarIntento(tiempo);
+
+  // Mostrar alerta de éxito y redirigir al cerrar
+  mostrarAlertaFinalizacion();
 }
+
+
 
 // Crear una fila para un producto
 function crearFila(producto) {
@@ -215,37 +229,27 @@ function cargarPalabras() {
 
 // Función para validar el juego
 function validarJuego() {
-  aciertos = 0;
-  fallos = 0;
-  vacios = 0;
-
   const filas = document.querySelectorAll(".row");
+  let juegoCompleto = true; // Bandera para verificar si todo está completo y correcto
 
   filas.forEach((fila) => {
     const selectSitio = fila.querySelector(".select-sitio-option");
     const selectProfesional = fila.querySelector(".select-profesional-option");
 
     const sitioSeleccionado = selectSitio ? selectSitio.value : null;
-    const profesionalSeleccionado = selectProfesional
-      ? selectProfesional.value
-      : null;
+    const profesionalSeleccionado = selectProfesional ? selectProfesional.value : null;
 
     const wordElement = fila.querySelector(".word");
-    const productoNombre = wordElement.textContent
-      .toLowerCase()
-      .replace(/\s+/g, "-");
+    const productoNombre = wordElement.textContent.toLowerCase().replace(/\s+/g, "-");
     const producto = productosSeleccionados.find(
-      (producto) =>
-        producto.nombre.toLowerCase().replace(/\s+/g, "-") === productoNombre
+      (producto) => producto.nombre.toLowerCase().replace(/\s+/g, "-") === productoNombre
     );
 
     if (producto) {
       const sitioValido =
-        producto.sitio.nombre.toLowerCase().replace(/\s+/g, "-") ===
-        sitioSeleccionado;
+        producto.sitio.nombre.toLowerCase().replace(/\s+/g, "-") === sitioSeleccionado;
       const profesionalValido =
-        producto.profesional.nombre.toLowerCase().replace(/\s+/g, "-") ===
-        profesionalSeleccionado;
+        producto.profesional.nombre.toLowerCase().replace(/\s+/g, "-") === profesionalSeleccionado;
 
       fila.classList.remove("correct", "incorrect", "empty", "half-correct");
 
@@ -254,27 +258,27 @@ function validarJuego() {
 
       if (sitioEsVacio || profesionalEsVacio) {
         fila.classList.add("empty");
+        juegoCompleto = false; // Si hay un campo vacío, el juego no se ha completado
+        vacios++; // Acumulando los vacíos
       } else if (sitioValido && profesionalValido) {
         fila.classList.add("correct");
-        aciertos++; // Aumentar solo una vez si ambos son correctos
+        aciertos++;
       } else if (sitioValido || profesionalValido) {
         fila.classList.add("half-correct");
+        juegoCompleto = false; // Si hay respuestas parciales, aún no está completo
       } else {
         fila.classList.add("incorrect");
+        juegoCompleto = false; // Si hay respuestas incorrectas, aún no está completo
+        fallos++; // Acumulando los fallos
       }
-
-      // Incrementa vacíos si no se seleccionó un sitio o profesional
-      if (sitioEsVacio) vacios++;
-      if (profesionalEsVacio) vacios++;
-
-      // Incrementa fallos solo si no es un vacío y no es válido
-      if (!sitioEsVacio && !sitioValido) fallos++;
-      if (!profesionalEsVacio && !profesionalValido) fallos++;
     }
   });
 
   solutionButton.style.display = "block";
+  return juegoCompleto; // Devuelve true si el juego está completamente validado
 }
+
+
 
 // Muestra las soluciones correctas
 function mostrarSolucion() {
@@ -307,11 +311,13 @@ function mostrarSolucion() {
 
 // Resetea el juego
 function resetJuego() {
+  aciertos = 0;
+  fallos = 0;
+  vacios = 0;
   document.getElementById("game-board").innerHTML = "";
   solutionBoard.innerHTML = "";
   solutionBoard.style.display = "none";
   solutionButton.style.display = "none";
-
   productosSeleccionados = [];
   palabras = [];
   inicializarJuego();
@@ -319,25 +325,41 @@ function resetJuego() {
 
 // Redirige al menú principal
 function volverAlMenu() {
+  validarJuego();
+  const tiempo = calcularTiempo();
+  console.log(`Aciertos: ${aciertos}, Fallos: ${fallos}, Vacíos: ${vacios}`);
+  registrarIntento(tiempo);
   window.location.assign("inicio.html");
+ 
 }
 
 // Muestra la alerta de validación
-function mostrarAlerta() {
+function mostrarAlertaFinalizacion() {
   const alertOverlay = document.getElementById("alert-overlay");
   alertOverlay.style.display = "flex";
 }
 
-// Cierra la alerta de validación
+// Modificar ocultarAlerta para que redirija después de cerrar
 function ocultarAlerta() {
   const alertOverlay = document.getElementById("alert-overlay");
   alertOverlay.style.display = "none";
+  window.location.assign("inicio.html"); // Redirigir al menú
 }
+
+function mostrarAlertaIncompleta() {
+  const alertOverlay = document.getElementById("alert-overlay-incomplete");
+  alertOverlay.style.display = "flex";
+}
+
+// Función para ocultar la alerta incompleta
+function ocultarAlertaIncompleta() {
+  const alertOverlay = document.getElementById("alert-overlay-incomplete");
+  alertOverlay.style.display = "none";
+}
+
 
 // Eventos para los botones
 document.querySelector(".finish-button").addEventListener("click", () => {
-  mostrarAlerta();
-  validarJuego();
   finalizarJuego();
 });
 solutionButton.addEventListener("click", mostrarSolucion);

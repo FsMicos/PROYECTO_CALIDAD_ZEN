@@ -255,7 +255,7 @@ select {
 }
 
 /* Estilos para la alerta personalizada */
-#alert-overlay, #paused-overlay {
+#alert-overlay,#alert-overlay-incomplete, #paused-overlay {
     position: fixed;
     top: 0;
     left: 0;
